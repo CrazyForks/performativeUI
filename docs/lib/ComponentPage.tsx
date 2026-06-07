@@ -1,7 +1,22 @@
-import type { ComponentType, ReactNode } from "react";
+import type { ComponentType, MouseEvent, ReactNode } from "react";
 import { type Source } from "./Attribution";
 import { CodeBlock } from "./CodeBlock";
 import { PropsTable, type PropSpec } from "./PropsTable";
+
+/**
+ * Intercept clicks on placeholder anchors inside demos. Many examples
+ * use `href="#"` as a stand-in target; HashRouter would otherwise treat
+ * that as a navigation back to "/" (the home page), which is bad UX.
+ * Real links with a non-placeholder href fall through unchanged.
+ */
+function swallowPlaceholderAnchorClicks(e: MouseEvent<HTMLDivElement>) {
+  const anchor = (e.target as HTMLElement).closest("a");
+  if (!anchor) return;
+  const href = anchor.getAttribute("href");
+  if (href === "#" || href === "" || href === null) {
+    e.preventDefault();
+  }
+}
 
 export interface ExampleSpec {
   title?: ReactNode;
@@ -55,6 +70,7 @@ export function ComponentPage({ meta }: { meta: ComponentMeta }) {
               ]
                 .filter(Boolean)
                 .join(" ")}
+              onClick={swallowPlaceholderAnchorClicks}
             >
               <ex.Demo />
             </div>
