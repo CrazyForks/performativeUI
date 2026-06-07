@@ -21,6 +21,17 @@
     "dist",
     "README.md"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vorpus/performativeUI.git"
+  },
+  "homepage": "https://vorpus.github.io/performativeUI/",
+  "bugs": {
+    "url": "https://github.com/vorpus/performativeUI/issues"
+  },
   "scripts": {
     "dev": "vite --config vite.docs.config.ts",
     "build": "npm run build:lib && npm run build:docs",
