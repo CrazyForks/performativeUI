@@ -275,6 +275,24 @@ button:hover > .pui-arrow,
 }
 .pui-btn--ghost:hover { background: var(--pui-bg-elev); border-color: #3a3a4e; }
 
+/* Text variant — no background, no border. Low-emphasis inline action,
+   the MUI "text" button (and friend of "Edit in chat" CTAs). */
+.pui-btn--text {
+  background: transparent;
+  color: var(--pui-fg-dim);
+  border: 0;
+  padding: 8px 12px;
+}
+.pui-btn--text:hover {
+  color: var(--pui-fg);
+  background: rgba(255, 255, 255, 0.05);
+}
+.pui-btn--text:disabled,
+.pui-btn--text[aria-busy="true"] {
+  color: var(--pui-fg-mute);
+  background: transparent;
+}
+
 .pui-btn--glow {
   position: relative;
   color: var(--pui-fg);

@@ -9,7 +9,13 @@ import {
 import { cn } from "../utils/cn";
 import { Sparkle } from "./Sparkle";
 
-export type ButtonVariant = "glow" | "shimmer" | "ghost" | "solid";
+export type ButtonVariant =
+  | "glow"
+  | "shimmer"
+  | "ghost"
+  | "solid"
+  /** Borderless, no background. The MUI-style "text" / "edit in chat" variant. */
+  | "text";
 export type ButtonSize = "sm" | "md" | "lg";
 
 export interface ButtonOwnProps {

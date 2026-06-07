@@ -198,22 +198,24 @@ export const COMPONENTS: ComponentMeta[] = [
     ],
     extra: 1200,
     description:
-      "Polymorphic button with four variants: glow (pulsing gradient halo), shimmer (animated highlight sweep), ghost (outlined), and solid (gradient fill). Pass `as` to render an `<a>` or routed link.",
+      "Polymorphic button with five variants: glow (pulsing gradient halo), shimmer (animated highlight sweep), ghost (outlined), solid (gradient fill), and text (borderless low-emphasis — the MUI 'text' / 'edit in chat' button). Pass `as` to render an `<a>` or routed link.",
     examples: [
       {
-        title: "All four variants",
+        title: "All five variants",
         Demo: () => (
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center" }}>
             <Button variant="glow" sparkle>Generate</Button>
             <Button variant="shimmer">Start building</Button>
             <Button variant="ghost">Talk to sales</Button>
             <Button variant="solid">Upgrade</Button>
+            <Button variant="text">Edit in chat</Button>
           </div>
         ),
         code: `<Button variant="glow" sparkle>Generate</Button>
 <Button variant="shimmer">Start building</Button>
 <Button variant="ghost">Talk to sales</Button>
-<Button variant="solid">Upgrade</Button>`,
+<Button variant="solid">Upgrade</Button>
+<Button variant="text">Edit in chat</Button>`,
       },
       {
         title: "Sizes",
@@ -244,7 +246,7 @@ export const COMPONENTS: ComponentMeta[] = [
       },
     ],
     props: [
-      { name: "variant", type: '"glow" | "shimmer" | "ghost" | "solid"', default: '"glow"', desc: "Visual style." },
+      { name: "variant", type: '"glow" | "shimmer" | "ghost" | "solid" | "text"', default: '"glow"', desc: "Visual style." },
       { name: "size", type: '"sm" | "md" | "lg"', default: '"md"', desc: "Padding + font." },
       { name: "sparkle", type: "boolean", desc: "Append a ✦ after the label." },
       { name: "loading", type: "boolean", desc: "Show spinner + disable." },
