@@ -1,0 +1,101 @@
+/**
+ * performative-ui — React components for the world's most performative
+ * AI-startup landing page tropes. Tongue firmly in cheek.
+ */
+
+// Styles — imported here so consumers get them via `import 'performative-ui'`.
+import "./styles.css";
+
+// Atoms
+export { Sparkle, type SparkleProps } from "./components/Sparkle";
+export { GradientText, type GradientTextProps } from "./components/GradientText";
+export { StatusDot, type StatusDotProps } from "./components/StatusDot";
+
+// Primitives
+export {
+  Button,
+  type ButtonProps,
+  type ButtonVariant,
+  type ButtonSize,
+} from "./components/Button";
+export { TopPill, type TopPillProps } from "./components/TopPill";
+export { EyebrowPill, type EyebrowPillProps } from "./components/EyebrowPill";
+
+// Heroes
+export { Rotator, type RotatorProps } from "./components/Rotator";
+export { PromptHero, type PromptHeroProps } from "./components/PromptHero";
+export { AsciiHero, type AsciiHeroProps } from "./components/AsciiHero";
+
+// Backgrounds
+export { Aurora, type AuroraProps } from "./components/Aurora";
+export {
+  NodeGraphBackground,
+  type NodeGraphBackgroundProps,
+} from "./components/NodeGraphBackground";
+export {
+  FloatingSparkles,
+  type FloatingSparklesProps,
+} from "./components/FloatingSparkles";
+
+// Surfaces
+export { GlassCard, type GlassCardProps } from "./components/GlassCard";
+export {
+  MockIDE,
+  type MockIDEProps,
+  type IdeToken,
+  type IdeTokenClass,
+} from "./components/MockIDE";
+
+// Conversation
+export {
+  ChatBubble,
+  type ChatBubbleProps,
+  type ChatRole,
+} from "./components/ChatBubble";
+export { TokenStream, type TokenStreamProps } from "./components/TokenStream";
+export { ChatFAB, type ChatFABProps } from "./components/ChatFAB";
+
+// Social proof
+export {
+  LogoMarquee,
+  type LogoMarqueeProps,
+  type MarqueeItem,
+} from "./components/LogoMarquee";
+export {
+  LogoRow,
+  type LogoRowProps,
+  type LogoRowItem,
+} from "./components/LogoRow";
+export { StatCounter, type StatCounterProps } from "./components/StatCounter";
+export {
+  CommunityBadge,
+  type CommunityBadgeProps,
+} from "./components/CommunityBadge";
+
+// Pricing / waitlist
+export { PricingCard, type PricingCardProps } from "./components/PricingCard";
+export { BeforeAfter, type BeforeAfterProps } from "./components/BeforeAfter";
+export { WaitlistForm, type WaitlistFormProps } from "./components/WaitlistForm";
+
+// Hooks (escape hatches for headless usage)
+export {
+  useTypewriter,
+  type UseTypewriterOptions,
+  type UseTypewriterResult,
+} from "./hooks/useTypewriter";
+export {
+  useCounter,
+  type UseCounterOptions,
+} from "./hooks/useCounter";
+export {
+  useTokenStream,
+  type UseTokenStreamOptions,
+  type UseTokenStreamResult,
+} from "./hooks/useTokenStream";
+export {
+  useAsciiField,
+  type UseAsciiFieldOptions,
+} from "./hooks/useAsciiField";
+
+// Utilities
+export { cn, type ClassValue } from "./utils/cn";
