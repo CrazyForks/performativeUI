@@ -275,23 +275,72 @@ button:hover > .pui-arrow,
 }
 .pui-btn--ghost:hover { background: var(--pui-bg-elev); border-color: #3a3a4e; }
 
-/* Text variant — no background, no border. Low-emphasis inline action,
-   the MUI "text" button (and friend of "Edit in chat" CTAs). */
+/* Text variant — borderless, no background. Low-emphasis at rest,
+   but lights up on hover because we cannot help ourselves: gradient
+   text, an underline that draws in, and a faint gradient halo. The
+   "edit in chat" pattern, taken seriously. */
 .pui-btn--text {
+  position: relative;
   background: transparent;
   color: var(--pui-fg-dim);
   border: 0;
-  padding: 8px 12px;
+  padding: 8px 14px 9px;
+  border-radius: 8px;
+  transition:
+    color 220ms var(--pui-ease),
+    transform 220ms var(--pui-ease);
+}
+/* The underline (animated, draws left → right on hover). */
+.pui-btn--text::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 5px;
+  height: 1.5px;
+  border-radius: 1.5px;
+  background: var(--pui-grad);
+  background-size: 200% 200%;
+  animation: pui-grad-shift 6s ease infinite;
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+/* The halo (faint gradient bloom behind the text). */
+.pui-btn--text::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(60% 100% at 50% 50%,
+    rgba(124, 58, 237, 0.18),
+    rgba(236, 72, 153, 0.10) 50%,
+    transparent 70%);
+  opacity: 0;
+  filter: blur(10px);
+  transition: opacity 280ms var(--pui-ease);
+  pointer-events: none;
 }
 .pui-btn--text:hover {
-  color: var(--pui-fg);
-  background: rgba(255, 255, 255, 0.05);
+  /* Gradient text on hover — clip the gradient bg to the text shape. */
+  color: transparent;
+  background: var(--pui-grad);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+          background-clip: text;
+  animation: pui-grad-shift 4s ease infinite;
+  transform: translateY(-0.5px);
 }
+.pui-btn--text:hover::after { transform: scaleX(1); }
+.pui-btn--text:hover::before { opacity: 1; }
 .pui-btn--text:disabled,
 .pui-btn--text[aria-busy="true"] {
   color: var(--pui-fg-mute);
   background: transparent;
 }
+.pui-btn--text:disabled::after,
+.pui-btn--text:disabled::before { display: none; }
 
 .pui-btn--glow {
   position: relative;
