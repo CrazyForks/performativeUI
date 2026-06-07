@@ -670,6 +670,32 @@ export const COMPONENTS: ComponentMeta[] = [
 </div>`,
       },
       {
+        title: "Lava-lamp animated (blobs push each other around)",
+        stretch: true,
+        Demo: () => (
+          <div style={{ position: "relative", height: 280, overflow: "hidden", isolation: "isolate" }}>
+            <Aurora
+              animated
+              blobs={[
+                { color: "rgba(124,58,237,0.55)", x: 30, y: 40, size: 55 },
+                { color: "rgba(236,72,153,0.45)", x: 65, y: 35, size: 50 },
+                { color: "rgba(6,182,212,0.40)",  x: 55, y: 75, size: 50 },
+                { color: "rgba(251,191,36,0.30)", x: 25, y: 70, size: 40 },
+              ]}
+            />
+          </div>
+        ),
+        code: `<Aurora
+  animated
+  blobs={[
+    { color: "rgba(124,58,237,0.55)", x: 30, y: 40, size: 55 },
+    { color: "rgba(236,72,153,0.45)", x: 65, y: 35, size: 50 },
+    { color: "rgba(6,182,212,0.40)",  x: 55, y: 75, size: 50 },
+    { color: "rgba(251,191,36,0.30)", x: 25, y: 70, size: 40 },
+  ]}
+/>`,
+      },
+      {
         title: "Custom palette",
         stretch: true,
         Demo: () => (
@@ -692,6 +718,8 @@ export const COMPONENTS: ComponentMeta[] = [
       { name: "blobs", type: "{color,x,y,size?}[]", desc: "Color stops with positions (0–100%)." },
       { name: "blur", type: "number", default: "50", desc: "CSS blur in px." },
       { name: "static", type: "boolean", desc: "Disable the slow drift." },
+      { name: "animated", type: "boolean", desc: "Lava-lamp mode — blobs become independent bubbles that push each other around. Overrides the CSS drift." },
+      { name: "repulsion", type: "number", default: "0.18", desc: "When animated, how aggressively blobs push each other apart (0 disables interaction)." },
     ],
   },
 
