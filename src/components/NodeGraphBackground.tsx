@@ -18,8 +18,31 @@ export interface NodeGraphBackgroundProps
   colors?: string[];
   /** Link color. */
   linkColor?: string;
-  /** Hover-attract distance. 0 disables interactivity. */
+  /**
+   * Radius (px) within which the cursor affects nodes/edges. Controls
+   * both the gravity falloff and the opacity-brighten falloff. Set 0
+   * to disable both. Default 200.
+   */
   hoverDistance?: number;
+  /**
+   * Strength (0–1) of the cursor's pull on nearby nodes. Default 0.005
+   * — very subtle drift. Set 0 to disable gravity entirely.
+   */
+  hoverGravity?: number;
+  /**
+   * Strength (0–1) of the opacity boost on nodes/edges near the cursor.
+   * Field is dim at rest (baseOpacity), fills in toward 1 near the
+   * cursor. Set 0 to disable. Default 0.8.
+   */
+  hoverBrighten?: number;
+  /** Resting opacity (0–1) for nodes and link strokes. Default 0.45. */
+  baseOpacity?: number;
+  /**
+   * px the simulation world extends past the visible viewport. Nodes
+   * bounce off the world rectangle, not the viewport — so they appear
+   * to drift in and out from off-screen. Default 80.
+   */
+  overscan?: number;
 }
 
 /**
@@ -44,7 +67,11 @@ export const NodeGraphBackground = forwardRef<
       linkDistance = 140,
       colors = ["#a78bfa", "#f0abfc", "#67e8f9"],
       linkColor = "#7c3aed",
-      hoverDistance = 180,
+      hoverDistance = 200,
+      hoverGravity = 0.005,
+      hoverBrighten = 0.8,
+      baseOpacity = 0.45,
+      overscan = 80,
       className,
       ...rest
     },
@@ -69,9 +96,15 @@ export const NodeGraphBackground = forwardRef<
       let nodes: Node[] = [];
 
       const seed = () => {
+        // Distribute nodes across the WORLD rectangle (viewport + overscan)
+        // so some start off-screen and drift in.
+        const wMin = -overscan;
+        const wMax = width + overscan;
+        const hMin = -overscan;
+        const hMax = height + overscan;
         nodes = Array.from({ length: density }, () => ({
-          x: Math.random() * width,
-          y: Math.random() * height,
+          x: wMin + Math.random() * (wMax - wMin),
+          y: hMin + Math.random() * (hMax - hMin),
           vx: (Math.random() - 0.5) * speed * 2,
           vy: (Math.random() - 0.5) * speed * 2,
           r: 1 + Math.random() * 1.6,
@@ -94,33 +127,54 @@ export const NodeGraphBackground = forwardRef<
 
       const tick = () => {
         ctx.clearRect(0, 0, width, height);
+        const worldLeft = -overscan;
+        const worldRight = width + overscan;
+        const worldTop = -overscan;
+        const worldBottom = height + overscan;
+        const mouseInside = mouse.x > -9000;
+
         // step
         for (const n of nodes) {
           n.x += n.vx;
           n.y += n.vy;
-          if (n.x < 0 || n.x > width) n.vx *= -1;
-          if (n.y < 0 || n.y > height) n.vy *= -1;
-          if (hoverDistance > 0) {
+          if (n.x < worldLeft || n.x > worldRight) n.vx *= -1;
+          if (n.y < worldTop || n.y > worldBottom) n.vy *= -1;
+          if (hoverDistance > 0 && hoverGravity > 0 && mouseInside) {
             const dx = mouse.x - n.x;
             const dy = mouse.y - n.y;
             const d = Math.hypot(dx, dy);
             if (d < hoverDistance) {
-              const pull = (1 - d / hoverDistance) * 0.04;
+              const pull = (1 - d / hoverDistance) * hoverGravity;
               n.x += dx * pull;
               n.y += dy * pull;
             }
           }
         }
-        // links
+
+        // Per-position brighten helper — returns 0..1 boost factor based
+        // on distance from cursor (0 at hoverDistance, 1 at cursor).
+        const brighten = (px: number, py: number) => {
+          if (!mouseInside || hoverDistance <= 0 || hoverBrighten <= 0) return 0;
+          const d = Math.hypot(mouse.x - px, mouse.y - py);
+          if (d >= hoverDistance) return 0;
+          return (1 - d / hoverDistance) * hoverBrighten;
+        };
+
+        // links — base alpha from edge length, opacity-boosted near cursor
         ctx.lineWidth = 1;
         for (let i = 0; i < nodes.length; i++) {
           for (let j = i + 1; j < nodes.length; j++) {
             const a = nodes[i];
             const b = nodes[j];
-            const d = Math.hypot(a.x - b.x, a.y - b.y);
-            if (d < linkDistance) {
-              const alpha = 1 - d / linkDistance;
-              ctx.strokeStyle = withAlpha(linkColor, alpha * 0.6);
+            const dlink = Math.hypot(a.x - b.x, a.y - b.y);
+            if (dlink < linkDistance) {
+              const lengthAlpha = 1 - dlink / linkDistance;
+              const midBoost = brighten((a.x + b.x) / 2, (a.y + b.y) / 2);
+              const alpha = Math.min(
+                1,
+                lengthAlpha * baseOpacity + midBoost * lengthAlpha,
+              );
+              ctx.strokeStyle = withAlpha(linkColor, alpha);
               ctx.beginPath();
               ctx.moveTo(a.x, a.y);
               ctx.lineTo(b.x, b.y);
@@ -128,9 +182,12 @@ export const NodeGraphBackground = forwardRef<
             }
           }
         }
-        // nodes
+
+        // nodes — dim at rest, fill in near cursor
         for (const n of nodes) {
-          ctx.fillStyle = n.color;
+          const boost = brighten(n.x, n.y);
+          const alpha = Math.min(1, baseOpacity + boost);
+          ctx.fillStyle = withAlpha(n.color, alpha);
           ctx.beginPath();
           ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
           ctx.fill();
@@ -160,7 +217,18 @@ export const NodeGraphBackground = forwardRef<
         host.removeEventListener("mousemove", onMove);
         host.removeEventListener("mouseleave", onLeave);
       };
-    }, [density, speed, linkDistance, hoverDistance, colors, linkColor]);
+    }, [
+      density,
+      speed,
+      linkDistance,
+      hoverDistance,
+      hoverGravity,
+      hoverBrighten,
+      baseOpacity,
+      overscan,
+      colors,
+      linkColor,
+    ]);
 
     // forward outer ref to a slot via callback
     const setRef = (el: HTMLDivElement | null) => {

@@ -749,7 +749,11 @@ export const COMPONENTS: ComponentMeta[] = [
       { name: "linkDistance", type: "number", default: "140", desc: "Max px between linked nodes." },
       { name: "colors", type: "string[]", desc: "Pool of node colors." },
       { name: "linkColor", type: "string", default: '"#7c3aed"', desc: "Link stroke color." },
-      { name: "hoverDistance", type: "number", default: "180", desc: "0 to disable cursor interactivity." },
+      { name: "baseOpacity", type: "number", default: "0.45", desc: "Resting alpha of nodes + edges. Field is dim at rest; cursor brightens it." },
+      { name: "hoverDistance", type: "number", default: "200", desc: "Radius of cursor effects (gravity + brighten). 0 disables both." },
+      { name: "hoverGravity", type: "number", default: "0.005", desc: "0–1 strength of cursor pull. Default is very subtle drift; set higher for stronger attraction." },
+      { name: "hoverBrighten", type: "number", default: "0.8", desc: "0–1 strength of opacity boost near the cursor." },
+      { name: "overscan", type: "number", default: "80", desc: "px the simulation world extends past the visible viewport — nodes bounce off the world edges, drifting in/out of view." },
     ],
   },
 

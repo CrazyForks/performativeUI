@@ -60,7 +60,10 @@ export const FloatingSparkles = forwardRef<HTMLDivElement, FloatingSparklesProps
             style={{
               left: `${it.left}%`,
               fontSize: `${it.size}px`,
-              opacity: it.opacity,
+              // Peak opacity at 10% of the animation. Driven via custom
+              // property so each sparkle keeps its variation, while the
+              // 0% keyframe (opacity: 0) handles "before start" hiding.
+              ["--pui-sparkle-peak" as string]: it.opacity.toFixed(2),
               animationDuration: `${it.duration}s`,
               animationDelay: `${it.delay}s`,
             }}
