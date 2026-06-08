@@ -1,7 +1,9 @@
 import type { ComponentType, MouseEvent, ReactNode } from "react";
+import { Link } from "react-router-dom";
 import { type Source } from "./Attribution";
 import { CodeBlock } from "./CodeBlock";
 import { PropsTable, type PropSpec } from "./PropsTable";
+import { ORDERED_COMPONENTS } from "./meta";
 
 /**
  * Intercept clicks on placeholder anchors inside demos. Many examples
@@ -43,6 +45,11 @@ export interface ComponentMeta {
 }
 
 export function ComponentPage({ meta }: { meta: ComponentMeta }) {
+  const idx = ORDERED_COMPONENTS.findIndex((c) => c.slug === meta.slug);
+  const next =
+    idx >= 0 && idx < ORDERED_COMPONENTS.length - 1
+      ? ORDERED_COMPONENTS[idx + 1]
+      : null;
   return (
     <article>
       <header className="cp-header">
@@ -98,6 +105,17 @@ export function ComponentPage({ meta }: { meta: ComponentMeta }) {
           </div>
         ))}
       </section>
+
+      {next && (
+        <Link to={`/components/${next.slug}`} className="cp-skim-next">
+          <span className="cp-skim-next__label">Next</span>
+          <span className="cp-skim-next__name">{next.name}</span>
+          <span className="cp-skim-next__hint">
+            <kbd>]</kbd>
+          </span>
+          <span className="cp-skim-next__arrow">→</span>
+        </Link>
+      )}
     </article>
   );
 }

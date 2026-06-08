@@ -1587,3 +1587,14 @@ export const COMPONENTS: ComponentMeta[] = [
 export const CATEGORIES = Array.from(
   new Set(COMPONENTS.map((c) => c.category)),
 );
+
+/**
+ * COMPONENTS in the same order they appear in the sidebar
+ * (category sections in CATEGORIES order, components within
+ * each section in their original array order). Used by the
+ * keyboard shortcuts and the "Next" card to step through
+ * pages in TOC order rather than array-definition order.
+ */
+export const ORDERED_COMPONENTS: ComponentMeta[] = CATEGORIES.flatMap(
+  (cat) => COMPONENTS.filter((c) => c.category === cat),
+);

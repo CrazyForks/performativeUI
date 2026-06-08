@@ -1,6 +1,12 @@
-import { NavLink, Route, Routes, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { COMPONENTS, CATEGORIES } from "./lib/meta";
+import {
+  NavLink,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { COMPONENTS, CATEGORIES, ORDERED_COMPONENTS } from "./lib/meta";
 import { ComponentPage } from "./lib/ComponentPage";
 import { Home } from "./pages/Home";
 
@@ -39,6 +45,8 @@ export function App() {
       /* localStorage may be blocked */
     }
   }, [theme]);
+
+  useSkimNavigation();
 
   return (
     <div className={"docs" + (menuOpen ? " docs--menu-open" : "")}>
@@ -83,6 +91,52 @@ export function App() {
       </main>
     </div>
   );
+}
+
+/**
+ * Quick-skim navigation for component pages.
+ *
+ * Keyboard only:
+ *   - `]` → next component (in sidebar / TOC order)
+ *   - `[` → previous component (in sidebar / TOC order)
+ *
+ * Skipped when focus is in a text input/textarea or any modifier key
+ * is held.
+ */
+function useSkimNavigation() {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  const ctx = useMemo(() => {
+    const idx = ORDERED_COMPONENTS.findIndex(
+      (c) => `/components/${c.slug}` === pathname,
+    );
+    return {
+      idx,
+      prev: idx > 0 ? ORDERED_COMPONENTS[idx - 1] : null,
+      next:
+        idx >= 0 && idx < ORDERED_COMPONENTS.length - 1
+          ? ORDERED_COMPONENTS[idx + 1]
+          : null,
+    };
+  }, [pathname]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const t = e.target;
+      if (t instanceof HTMLInputElement || t instanceof HTMLTextAreaElement) return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      if (e.key === "]" && ctx.next) {
+        e.preventDefault();
+        navigate(`/components/${ctx.next.slug}`);
+      } else if (e.key === "[" && ctx.prev) {
+        e.preventDefault();
+        navigate(`/components/${ctx.prev.slug}`);
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [ctx, navigate]);
 }
 
 function Sidebar({

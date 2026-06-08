@@ -311,6 +311,57 @@ a { color: inherit; }
 .props tr:last-child td { border-bottom: 0; }
 .props .req { color: var(--pui-danger); font-weight: 700; font-size: 11px; margin-left: 4px; }
 
+/* ---------- Skim-next card (component-page footer) ---------- */
+.cp-skim-next {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 48px;
+  padding: 18px 22px;
+  border: 1px solid var(--pui-border);
+  border-radius: 14px;
+  text-decoration: none;
+  color: var(--pui-fg);
+  background: var(--pui-overlay);
+  transition: border-color 200ms var(--pui-ease),
+              transform 200ms var(--pui-ease),
+              background 200ms var(--pui-ease);
+}
+.cp-skim-next:hover {
+  border-color: rgba(124, 58, 237, 0.45);
+  background: var(--pui-overlay-strong);
+}
+.cp-skim-next:hover .cp-skim-next__arrow { transform: translateX(4px); }
+.cp-skim-next__label {
+  font-family: var(--pui-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--pui-fg-mute);
+}
+.cp-skim-next__name {
+  flex: 1;
+  font-size: 18px;
+  font-weight: 600;
+}
+.cp-skim-next__hint {
+  font-family: var(--pui-font-mono);
+  font-size: 11px;
+  color: var(--pui-fg-mute);
+}
+.cp-skim-next__hint kbd {
+  font: inherit;
+  padding: 1px 6px;
+  border: 1px solid var(--pui-border-bright);
+  border-radius: 4px;
+  margin-right: 4px;
+}
+.cp-skim-next__arrow {
+  font-size: 18px;
+  color: var(--pui-fg-mute);
+  transition: transform 200ms var(--pui-ease);
+}
+
 /* ---------- Home page ---------- */
 .home-hero {
   position: relative;
