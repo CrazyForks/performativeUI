@@ -44,6 +44,16 @@ npm install performative-ui
 Visit **[the documentation](https://vorpus.github.io/performativeUI/)** for the
 full component catalog, live demos, and API reference.
 
+## Star History
+
+<a href="https://www.star-history.com/?repos=vorpus%2FperformativeUI&type=date&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=vorpus/performativeUI&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=vorpus/performativeUI&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=vorpus/performativeUI&type=date&legend=top-left" />
+ </picture>
+</a>
+
 ## License
 
 MIT
