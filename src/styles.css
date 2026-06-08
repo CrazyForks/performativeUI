@@ -1257,6 +1257,7 @@ button:hover > .pui-arrow,
    ============================================================= */
 .pui-stat {
   font-family: var(--pui-font-sans);
+  font-variant: tabular-nums;
   font-weight: 800;
   letter-spacing: -0.04em;
   line-height: 1;
