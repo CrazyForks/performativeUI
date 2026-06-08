@@ -8,6 +8,7 @@ import {
   Rotator,
   WordRoll,
   PromptHero,
+  Prompt,
   AsciiHero,
   Aurora,
   NodeGraphBackground,
@@ -514,6 +515,85 @@ export const COMPONENTS: ComponentMeta[] = [
       { name: "leading", type: "ReactNode | false", default: "<Sparkle />", desc: "Leading icon." },
       { name: "ctaLabel", type: "ReactNode", default: '"Generate"', desc: "Submit button label." },
       { name: "hideCta", type: "boolean", desc: "Render input-only." },
+    ],
+  },
+
+  {
+    slug: "prompt",
+    category: "Heroes",
+    name: "Prompt",
+    snark: "The textarea every AI builder ships instead of explaining what their product does.",
+    sources: [
+      { name: "bolt.new", url: "https://bolt.new" },
+      { name: "lovable.dev", url: "https://lovable.dev" },
+      { name: "v0.app", url: "https://v0.app" },
+      { name: "replit.com", url: "https://replit.com" },
+      { name: "chatgpt.com", url: "https://chatgpt.com" },
+    ],
+    extra: 240,
+    description:
+      "The multi-line prompt box used by every AI builder. Multi-line textarea on top, toolbar on the bottom: a `+` for adding context, a model dropdown, a microphone for voice mode, and a gradient send button. Cmd/Ctrl+Enter submits.",
+    examples: [
+      {
+        title: "Default",
+        stretch: true,
+        Demo: () => (
+          <div style={{ padding: 24, display: "flex", justifyContent: "center" }}>
+            <Prompt
+              onSubmit={(text: string, ctx: { model?: string }) =>
+                alert(`Building with ${ctx.model}:\n${text}`)
+              }
+            />
+          </div>
+        ),
+        code: `<Prompt
+  onSubmit={(text, { model }) => generate(text, model)}
+/>`,
+      },
+      {
+        title: "Custom models + voice/context wired up",
+        stretch: true,
+        Demo: () => (
+          <div style={{ padding: 24, display: "flex", justifyContent: "center" }}>
+            <Prompt
+              placeholder="Paste a tweet, get a landing page…"
+              models={["o4-mini", "Claude Sonnet 4.6", "Llama 4 70B"]}
+              defaultModel="Claude Sonnet 4.6"
+              onAddContext={() => alert("File picker opens here")}
+              onVoice={() => alert("Voice mode")}
+              onSubmit={(text: string) => alert("Ship it: " + text)}
+            />
+          </div>
+        ),
+        code: `<Prompt
+  placeholder="Paste a tweet, get a landing page…"
+  models={["o4-mini", "Claude Sonnet 4.6", "Llama 4 70B"]}
+  defaultModel="Claude Sonnet 4.6"
+  onAddContext={openFilePicker}
+  onVoice={startVoiceMode}
+  onSubmit={(text) => generate(text)}
+/>`,
+      },
+    ],
+    props: [
+      { name: "value", type: "string", desc: "Controlled text value." },
+      { name: "defaultValue", type: "string", desc: "Uncontrolled initial text." },
+      { name: "onChange", type: "(value: string) => void", desc: "Fires on every keystroke." },
+      { name: "onSubmit", type: "(value, ctx: {model}) => void", desc: "Fires on submit (button or Cmd/Ctrl+Enter)." },
+      { name: "placeholder", type: "string", default: '"Build me a…"', desc: "Textarea placeholder." },
+      { name: "rows", type: "number", default: "3", desc: "Initial textarea height in rows." },
+      { name: "models", type: "string[]", desc: "Model options for the dropdown." },
+      { name: "model", type: "string", desc: "Controlled selected model." },
+      { name: "defaultModel", type: "string", desc: "Uncontrolled initial model." },
+      { name: "onModelChange", type: "(model: string) => void", desc: "Fires when the user picks a model." },
+      { name: "onAddContext", type: "() => void", desc: "Fires when the + button is clicked." },
+      { name: "onVoice", type: "() => void", desc: "Fires when the mic button is clicked." },
+      { name: "hideAddContext", type: "boolean", desc: "Hide the + button." },
+      { name: "hideModel", type: "boolean", desc: "Hide the model dropdown." },
+      { name: "hideVoice", type: "boolean", desc: "Hide the mic button." },
+      { name: "hideSend", type: "boolean", desc: "Hide the send button." },
+      { name: "submitOnCmdEnter", type: "boolean", default: "true", desc: "Submit when Cmd/Ctrl+Enter is pressed." },
+      { name: "toolbarExtras", type: "ReactNode", desc: "Extra node rendered just before the mic + send buttons (e.g. a Cmd+↵ hint)." },
     ],
   },
 

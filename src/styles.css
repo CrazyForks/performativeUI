@@ -576,6 +576,152 @@ button:hover > .pui-arrow,
 .pui-prompt__input::placeholder { color: var(--pui-fg-mute); }
 
 /* =============================================================
+   Component: Prompt (the multi-line "chat" prompt box with a
+   toolbar — used by bolt.new, lovable.dev, v0.app, replit, etc.)
+   ============================================================= */
+.pui-promptbox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 720px;
+  padding: 14px 14px 10px;
+  background: rgba(15, 15, 22, 0.85);
+  border: 1px solid var(--pui-border-bright);
+  border-radius: 18px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.55),
+              0 0 0 1px rgba(124, 58, 237, 0.18),
+              0 0 32px rgba(124, 58, 237, 0.18);
+  backdrop-filter: blur(10px);
+  font-family: var(--pui-font-sans);
+}
+.pui-promptbox__textarea {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  resize: none;
+  color: var(--pui-fg);
+  font-family: inherit;
+  font-size: 15px;
+  line-height: 1.5;
+  padding: 4px 4px 0;
+  min-height: 60px;
+}
+.pui-promptbox__textarea::placeholder { color: var(--pui-fg-mute); }
+
+.pui-promptbox__toolbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.pui-promptbox__spacer { flex: 1; }
+
+.pui-promptbox__iconbtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--pui-border-bright);
+  color: var(--pui-fg-dim);
+  cursor: pointer;
+  transition: background 160ms var(--pui-ease),
+              color 160ms var(--pui-ease),
+              border-color 160ms var(--pui-ease),
+              box-shadow 200ms var(--pui-ease),
+              transform 120ms var(--pui-ease);
+}
+.pui-promptbox__iconbtn:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--pui-fg);
+  border-color: #3a3a4e;
+}
+.pui-promptbox__iconbtn:active { transform: translateY(1px); }
+
+.pui-promptbox__model-wrap { position: relative; }
+.pui-promptbox__model {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 10px 0 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--pui-border-bright);
+  color: var(--pui-fg-dim);
+  font-family: var(--pui-font-mono);
+  font-size: 12.5px;
+  cursor: pointer;
+  transition: background 160ms var(--pui-ease),
+              color 160ms var(--pui-ease),
+              border-color 160ms var(--pui-ease);
+}
+.pui-promptbox__model:hover {
+  color: var(--pui-fg);
+  background: rgba(255, 255, 255, 0.07);
+  border-color: #3a3a4e;
+}
+.pui-promptbox__menu {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 0;
+  min-width: 220px;
+  padding: 4px;
+  background: var(--pui-bg-elev);
+  border: 1px solid var(--pui-border-bright);
+  border-radius: 12px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.6),
+              0 0 0 1px rgba(124, 58, 237, 0.10);
+  z-index: 10;
+}
+.pui-promptbox__menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--pui-fg);
+  font-family: var(--pui-font-mono);
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 120ms var(--pui-ease);
+}
+.pui-promptbox__menu-item:hover { background: rgba(124, 58, 237, 0.14); }
+.pui-promptbox__menu-item--active {
+  background: linear-gradient(180deg,
+    rgba(124, 58, 237, 0.18),
+    rgba(236, 72, 153, 0.06));
+}
+.pui-promptbox__menu-item--active:hover { background: linear-gradient(180deg,
+    rgba(124, 58, 237, 0.22),
+    rgba(236, 72, 153, 0.10)); }
+
+/* Send button: AI gradient fill with a subtle glow on hover. */
+.pui-promptbox__send {
+  background: var(--pui-grad);
+  background-size: 200% 200%;
+  color: #0a0a12;
+  border-color: transparent;
+  animation: pui-grad-shift 6s ease infinite;
+}
+.pui-promptbox__send:hover {
+  color: #0a0a12;
+  background: var(--pui-grad);
+  background-size: 200% 200%;
+  border-color: transparent;
+  box-shadow: 0 0 18px rgba(124, 58, 237, 0.55);
+}
+
+/* =============================================================
    Component: LogoMarquee
    ============================================================= */
 .pui-marquee {

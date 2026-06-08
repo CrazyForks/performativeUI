@@ -25,6 +25,7 @@ export { EyebrowPill, type EyebrowPillProps } from "./components/EyebrowPill";
 export { Rotator, type RotatorProps } from "./components/Rotator";
 export { WordRoll, type WordRollProps } from "./components/WordRoll";
 export { PromptHero, type PromptHeroProps } from "./components/PromptHero";
+export { Prompt, type PromptProps } from "./components/Prompt";
 export { AsciiHero, type AsciiHeroProps } from "./components/AsciiHero";
 
 // Backgrounds
