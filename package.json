@@ -1,6 +1,6 @@
 {
   "name": "performative-ui",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": false,
   "description": "AI-native React components that signal how oversubscribed your funding round is.",
   "type": "module",
