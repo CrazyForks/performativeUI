@@ -1,5 +1,5 @@
 /* =============================================================
-   docs/styles.css — site chrome only.
+   docs/styles.css, site chrome only.
    Component styles come from performative-ui/styles.css.
    ============================================================= */
 
@@ -309,7 +309,7 @@ a { color: inherit; }
 
 /* Row holding the GitHub Star iframe. buttons.js replaces the anchor
    with an iframe sized exactly to its content, so we just inline-center
-   it via text-align (not flex — flex stretches the row to full width
+   it via text-align (not flex, flex stretches the row to full width
    and the iframe's visual center stays off-page-center). */
 .home-cta-row {
   margin-top: 14px;
@@ -371,7 +371,7 @@ a { color: inherit; }
   .docs__main { padding: 32px 24px 100px; }
   .home-hero, .home-grid { padding-left: 24px; padding-right: 24px; }
 
-  /* Hamburger toggle — fixed top-right, always above everything.
+  /* Hamburger toggle, fixed top-right, always above everything.
      Sized for a comfortable thumb tap (48×48, above the 44-Apple /
      48-Google minimums) regardless of page zoom or content size.
      Uses env(safe-area-inset-*) so it clears the iOS notch and
@@ -401,14 +401,14 @@ a { color: inherit; }
     /* Suppress the iOS default tap highlight (we have :active). */
     -webkit-tap-highlight-color: transparent;
     /* Hard-pin sizing so user font-size / zoom doesn't reflow the
-       button — explicit width/height already do this, but `font` and
+       button, explicit width/height already do this, but `font` and
        `box-sizing` keep the box from being inflated by inherited
        styles. */
     box-sizing: content-box;
   }
   .docs__menu-btn:active { transform: scale(0.94); }
 
-  /* Backdrop — not strictly needed when the drawer is full-screen,
+  /* Backdrop, not strictly needed when the drawer is full-screen,
      but kept for the slide-in fade and to catch stray taps. */
   .docs__backdrop {
     display: block;
@@ -434,7 +434,7 @@ a { color: inherit; }
     top: 0;
     left: 0;
     height: 100vh;
-    /* 100dvh on browsers that support it — accounts for the iOS
+    /* 100dvh on browsers that support it, accounts for the iOS
        address bar collapse. */
     height: 100dvh;
     width: 100vw;
@@ -454,7 +454,7 @@ a { color: inherit; }
   .docs--menu-open .sidebar {
     transform: translateX(0);
   }
-  /* Bigger nav targets on mobile — comfortable to tap, readable
+  /* Bigger nav targets on mobile, comfortable to tap, readable
      at any zoom. */
   .sidebar__link {
     padding: 12px 14px;

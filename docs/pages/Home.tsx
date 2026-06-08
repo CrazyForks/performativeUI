@@ -10,7 +10,7 @@ import {
 } from "performative-ui";
 import { COMPONENTS, CATEGORIES } from "../lib/meta";
 
-// buttons.github.io is a self-invoked IIFE — it scans the DOM once
+// buttons.github.io is a self-invoked IIFE, it scans the DOM once
 // when its <script> tag executes and exposes NO public API (verified
 // by reading the minified source). To re-scan on every Home mount
 // (back-navigation, etc.), append a fresh <script> tag each time;

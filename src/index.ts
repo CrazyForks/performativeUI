@@ -1,9 +1,9 @@
 /**
- * performative-ui — React components for the world's most performative
+ * performative-ui, React components for the world's most performative
  * AI-startup landing page tropes. Tongue firmly in cheek.
  */
 
-// Styles — imported here so consumers get them via `import 'performative-ui'`.
+// Styles, imported here so consumers get them via `import 'performative-ui'`.
 import "./styles.css";
 
 // Atoms

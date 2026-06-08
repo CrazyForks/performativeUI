@@ -158,7 +158,7 @@ export const COMPONENTS: ComponentMeta[] = [
     ],
     extra: 600,
     description:
-      "A pulsing colored dot — the universal 'we're live' indicator. Drop into pills, navs, statuses.",
+      "A pulsing colored dot, the universal 'we're live' indicator. Drop into pills, navs, statuses.",
     examples: [
       {
         title: "Default green",
@@ -198,7 +198,7 @@ export const COMPONENTS: ComponentMeta[] = [
     ],
     extra: 1200,
     description:
-      "Polymorphic button with five variants: glow (pulsing gradient halo), shimmer (animated highlight sweep), ghost (outlined), solid (gradient fill), and wave (pill with an animated rainbow wrapping its bottom border — the MUI 'Edit in Chat' treatment). Pass `as` to render an `<a>` or routed link.",
+      "Polymorphic button with five variants: glow (pulsing gradient halo), shimmer (animated highlight sweep), ghost (outlined), solid (gradient fill), and wave (pill with an animated rainbow wrapping its bottom border, the MUI 'Edit in Chat' treatment). Pass `as` to render an `<a>` or routed link.",
     examples: [
       {
         title: "All five variants",
@@ -274,11 +274,11 @@ export const COMPONENTS: ComponentMeta[] = [
         stretch: true,
         Demo: () => (
           <StickyBanner trailing={<span className="pui-arrow">→</span>}>
-            Backed by Y Combinator (W26) — we just raised our seed
+            Backed by Y Combinator (W26), we just raised our seed
           </StickyBanner>
         ),
         code: `<StickyBanner trailing="→">
-  Backed by Y Combinator (W26) — we just raised our seed
+  Backed by Y Combinator (W26), we just raised our seed
 </StickyBanner>`,
       },
     ],
@@ -333,7 +333,7 @@ export const COMPONENTS: ComponentMeta[] = [
     ],
     extra: 30,
     description:
-      "Types each word, holds, deletes, advances, repeats — the canonical AI-startup-headline animation. Use `renderWord` for custom treatment, or skip the component entirely and call `useTypewriter()` yourself.",
+      "Types each word, holds, deletes, advances, repeats, the canonical AI-startup-headline animation. Use `renderWord` for custom treatment, or skip the component entirely and call `useTypewriter()` yourself.",
     examples: [
       {
         title: "Basic",
@@ -414,7 +414,7 @@ export const COMPONENTS: ComponentMeta[] = [
     ],
     extra: 40,
     description:
-      "Vertical slide-roll cousin of Rotator. The active word slides in, the previous one slides out — no typing, no cursor. Pass `gradient` to get the AI-pink treatment per-word (don't nest inside `<GradientText>` — background-clip:text doesn't apply to the absolutely-positioned rolling words).",
+      "Vertical slide-roll cousin of Rotator. The active word slides in, the previous one slides out, no typing, no cursor. Pass `gradient` to get the AI-pink treatment per-word (don't nest inside `<GradientText>`, background-clip:text doesn't apply to the absolutely-positioned rolling words).",
     examples: [
       {
         title: "Default (roll up)",
@@ -530,7 +530,7 @@ export const COMPONENTS: ComponentMeta[] = [
     ],
     extra: 25,
     description:
-      "A canvas-rendered procedural ASCII field that reacts to the cursor. The grid auto-fits its container. Two visual modes: `panel` (default, bordered card) and `bare` (no chrome, intended for background use). Flip on `colorful` for the aurora palette and `spotlightOpacity` to brighten the area under the cursor — perfect for low-opacity backgrounds where the user gets rewarded for hovering.",
+      "A canvas-rendered procedural ASCII field that reacts to the cursor. The grid auto-fits its container. Two visual modes: `panel` (default, bordered card) and `bare` (no chrome, intended for background use). Flip on `colorful` for the aurora palette and `spotlightOpacity` to brighten the area under the cursor, perfect for low-opacity backgrounds where the user gets rewarded for hovering.",
     examples: [
       {
         title: "Default panel",
@@ -718,7 +718,7 @@ export const COMPONENTS: ComponentMeta[] = [
       { name: "blobs", type: "{color,x,y,size?}[]", desc: "Color stops with positions (0–100%)." },
       { name: "blur", type: "number", default: "50", desc: "CSS blur in px." },
       { name: "static", type: "boolean", desc: "Disable the slow drift." },
-      { name: "animated", type: "boolean", desc: "Lava-lamp mode — blobs become independent bubbles that push each other around. Overrides the CSS drift." },
+      { name: "animated", type: "boolean", desc: "Lava-lamp mode, blobs become independent bubbles that push each other around. Overrides the CSS drift." },
       { name: "repulsion", type: "number", default: "0.18", desc: "When animated, how aggressively blobs push each other apart (0 disables interaction)." },
     ],
   },
@@ -781,7 +781,7 @@ export const COMPONENTS: ComponentMeta[] = [
       { name: "hoverDistance", type: "number", default: "200", desc: "Radius of cursor effects (gravity + brighten). 0 disables both." },
       { name: "hoverGravity", type: "number", default: "0.005", desc: "0–1 strength of cursor pull. Default is very subtle drift; set higher for stronger attraction." },
       { name: "hoverBrighten", type: "number", default: "0.8", desc: "0–1 strength of opacity boost near the cursor." },
-      { name: "overscan", type: "number", default: "80", desc: "px the simulation world extends past the visible viewport — nodes bounce off the world edges, drifting in/out of view." },
+      { name: "overscan", type: "number", default: "80", desc: "px the simulation world extends past the visible viewport, nodes bounce off the world edges, drifting in/out of view." },
     ],
   },
 
@@ -1078,7 +1078,7 @@ export const COMPONENTS: ComponentMeta[] = [
           <div style={{ position: "relative", minHeight: 200, width: "100%" }}>
             <p style={{ textAlign: "center", color: "var(--pui-fg-mute)" }}>
               The FAB is fixed-positioned to the viewport, so it's docked
-              bottom-right of your window — not this card.
+              bottom-right of your window, not this card.
             </p>
             <ChatFAB
               popover={
@@ -1480,15 +1480,25 @@ export const COMPONENTS: ComponentMeta[] = [
       {
         title: "Default",
         Demo: () => (
-          <WaitlistForm onSubmit={(email: string) => alert("Welcome to the waitlist, " + email)} />
+          <WaitlistForm
+            footnote="We email when something actually ships."
+            onSubmit={(email: string) =>
+              alert("Welcome to the waitlist, " + email)
+            }
+          />
         ),
-        code: `<WaitlistForm onSubmit={(email) => createWaitlistEntry(email)} />`,
+        code: `<WaitlistForm
+  footnote="We email when something actually ships."
+  onSubmit={(email) => createWaitlistEntry(email)}
+/>`,
       },
     ],
     props: [
       { name: "placeholder", type: "string", default: '"you@startup.ai"', desc: "Input placeholder." },
       { name: "defaultValue", type: "string", desc: "Initial email value." },
-      { name: "ctaLabel", type: "ReactNode", default: '"Join the waitlist"', desc: "Submit label." },
+      { name: "ctaLabel", type: "ReactNode", default: '"Notify me"', desc: "Submit button label." },
+      { name: "leading", type: "ReactNode | false", desc: "Leading icon. Defaults to an envelope SVG; pass false to remove or any node to replace." },
+      { name: "footnote", type: "ReactNode", desc: "Small line of text rendered below the form." },
       { name: "onSubmit", type: "(email: string) => void", desc: "Submit callback." },
     ],
   },

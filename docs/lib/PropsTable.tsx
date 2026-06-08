@@ -26,7 +26,7 @@ export function PropsTable({ props }: { props: PropSpec[] }) {
               {p.required && <span className="req">*</span>}
             </td>
             <td>{p.type}</td>
-            <td>{p.default ?? "—"}</td>
+            <td>{p.default ?? "-"}</td>
             <td>{p.desc}</td>
           </tr>
         ))}

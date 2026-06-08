@@ -17,7 +17,7 @@ export interface TokenStreamProps
 
 /**
  * Reveals text token-by-token with a trailing blinking caret. The "see it
- * think" pattern — slower on purpose.
+ * think" pattern, slower on purpose.
  *
  *     <TokenStream text="Reasoning, but visibly." />
  *

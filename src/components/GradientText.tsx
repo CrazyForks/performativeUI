@@ -13,7 +13,7 @@ export interface GradientTextProps extends ComponentPropsWithoutRef<"span"> {
 }
 
 /**
- * Text painted with the consensus AI gradient. Use sparingly — or don't.
+ * Text painted with the consensus AI gradient. Use sparingly, or don't.
  */
 export const GradientText = forwardRef<HTMLElement, GradientTextProps>(
   ({ as, static: isStatic, className, children, ...rest }, ref) => {

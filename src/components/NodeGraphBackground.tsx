@@ -26,7 +26,7 @@ export interface NodeGraphBackgroundProps
   hoverDistance?: number;
   /**
    * Strength (0–1) of the cursor's pull on nearby nodes. Default 0.005
-   * — very subtle drift. Set 0 to disable gravity entirely.
+   *, very subtle drift. Set 0 to disable gravity entirely.
    */
   hoverGravity?: number;
   /**
@@ -39,7 +39,7 @@ export interface NodeGraphBackgroundProps
   baseOpacity?: number;
   /**
    * px the simulation world extends past the visible viewport. Nodes
-   * bounce off the world rectangle, not the viewport — so they appear
+   * bounce off the world rectangle, not the viewport, so they appear
    * to drift in and out from off-screen. Default 80.
    */
   overscan?: number;
@@ -151,7 +151,7 @@ export const NodeGraphBackground = forwardRef<
           }
         }
 
-        // Per-position brighten helper — returns 0..1 boost factor based
+        // Per-position brighten helper, returns 0..1 boost factor based
         // on distance from cursor (0 at hoverDistance, 1 at cursor).
         const brighten = (px: number, py: number) => {
           if (!mouseInside || hoverDistance <= 0 || hoverBrighten <= 0) return 0;
@@ -160,7 +160,7 @@ export const NodeGraphBackground = forwardRef<
           return (1 - d / hoverDistance) * hoverBrighten;
         };
 
-        // links — base alpha from edge length, opacity-boosted near cursor
+        // links, base alpha from edge length, opacity-boosted near cursor
         ctx.lineWidth = 1;
         for (let i = 0; i < nodes.length; i++) {
           for (let j = i + 1; j < nodes.length; j++) {
@@ -183,7 +183,7 @@ export const NodeGraphBackground = forwardRef<
           }
         }
 
-        // nodes — dim at rest, fill in near cursor
+        // nodes, dim at rest, fill in near cursor
         for (const n of nodes) {
           const boost = brighten(n.x, n.y);
           const alpha = Math.min(1, baseOpacity + boost);
@@ -252,7 +252,7 @@ export const NodeGraphBackground = forwardRef<
 NodeGraphBackground.displayName = "NodeGraphBackground";
 
 function withAlpha(color: string, a: number): string {
-  // Accept "#rrggbb" or "#rgb" — fall back to color as-is for named/rgba.
+  // Accept "#rrggbb" or "#rgb", fall back to color as-is for named/rgba.
   if (color.startsWith("#")) {
     let r: number, g: number, b: number;
     if (color.length === 4) {

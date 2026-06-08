@@ -8,7 +8,7 @@ export function CodeBlock({ code }: { code: string }) {
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
     } catch {
-      /* clipboard blocked — fail silently */
+      /* clipboard blocked, fail silently */
     }
   };
   return (

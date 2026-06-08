@@ -82,7 +82,7 @@ export function useTypewriter({
       cancelled = true;
       if (timer) clearTimeout(timer);
     };
-    // We deliberately don't depend on words/typeMs/etc — the effect resets
+    // We deliberately don't depend on words/typeMs/etc, the effect resets
     // the loop only on mount. Consumers wanting to swap word lists should
     // remount the host component (key=...).
     // eslint-disable-next-line react-hooks/exhaustive-deps

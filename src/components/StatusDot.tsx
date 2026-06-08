@@ -9,7 +9,7 @@ export interface StatusDotProps extends ComponentPropsWithoutRef<"span"> {
 }
 
 /**
- * A pulsing colored dot — the universal "we're live!" indicator.
+ * A pulsing colored dot, the universal "we're live!" indicator.
  */
 export const StatusDot = forwardRef<HTMLSpanElement, StatusDotProps>(
   ({ color, static: isStatic, className, style, ...rest }, ref) => (

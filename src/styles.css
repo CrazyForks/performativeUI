@@ -1,12 +1,12 @@
 /* =============================================================
-   performative-ui — styles
+   performative-ui, styles
    -------------------------------------------------------------
    All classes prefixed `pui-`. Themeable via CSS custom
    properties on :root, .pui-theme, or any ancestor.
    ============================================================= */
 
 /* =============================================================
-   TOKENS — override on :root or any ancestor to retheme.
+   TOKENS, override on :root or any ancestor to retheme.
    ============================================================= */
 :root,
 .pui-theme {
@@ -131,7 +131,7 @@
    Rotator inside a GradientText). Without the webkit one, dynamic
    text can render as fully invisible.
 
-   Forcing `display: inline-block` for the same reason — text-clipping
+   Forcing `display: inline-block` for the same reason, text-clipping
    on a plain inline element with inline-block descendants is fragile
    on iOS.
    ============================================================= */
@@ -186,7 +186,7 @@ button:hover > .pui-arrow,
   -webkit-text-fill-color: currentColor;
   background: none;
 }
-/* CSS-drawn cursor — a rectangle aligned to the text baseline, the
+/* CSS-drawn cursor, a rectangle aligned to the text baseline, the
    way a terminal renders it. Used when no `cursor` glyph is passed. */
 .pui-rotator__cursor--block {
   width: 0.55em;
@@ -204,7 +204,7 @@ button:hover > .pui-arrow,
   display: inline-block;
   position: relative;
   /* clip-path instead of overflow:hidden because overflow:hidden on
-     an inline-block snaps its baseline to the bottom margin edge —
+     an inline-block snaps its baseline to the bottom margin edge,
      which makes the rolling word sit below the line of surrounding
      text. clip-path keeps the natural inline-block baseline. */
   clip-path: inset(0);
@@ -236,7 +236,7 @@ button:hover > .pui-arrow,
 
 /* Gradient prop: paint each rolling word with the AI gradient
    directly. Nesting in <GradientText> doesn't work for absolutely-
-   positioned children — this is the supported pattern. */
+   positioned children, this is the supported pattern. */
 .pui-roll--gradient .pui-roll__word {
   background: var(--pui-grad);
   background-size: 200% 200%;
@@ -287,7 +287,7 @@ button:hover > .pui-arrow,
 }
 .pui-btn--ghost:hover { background: var(--pui-bg-elev); border-color: #3a3a4e; }
 
-/* Wave variant — faithful reproduction of MUI's "Edit in Chat" button.
+/* Wave variant, faithful reproduction of MUI's "Edit in Chat" button.
 
    The recipe (via Web Animations API + getComputedStyle on MUI):
 
@@ -304,7 +304,7 @@ button:hover > .pui-arrow,
           where layers 1 + 2 aren't covering, i.e. the bottom border
           ring, wrapping the curve of the pill.
    - A ::before holds a blurred (blur(8px)) horizontal rainbow strip
-     that hangs just below the pill — the diffuse glow.
+     that hangs just below the pill, the diffuse glow.
    - background-position of layer 3 + the ::before animates -100% →
      100% over 2s / 3s for the rainbow to drift continuously. */
 .pui-btn--wave {
@@ -383,7 +383,7 @@ button:hover > .pui-arrow,
 .pui-btn--wave:disabled::before { display: none; }
 
 /* Animate only the rainbow layer's bg-position (layer 3). The dark
-   layers stay put — they're solid/fading and a position shift on
+   layers stay put, they're solid/fading and a position shift on
    them would be invisible anyway. */
 @keyframes pui-wave-shift {
   from { background-position: 0% 50%, 0% 50%, -100% 50%; }
@@ -1072,29 +1072,55 @@ button:hover > .pui-arrow,
 
 /* =============================================================
    Component: WaitlistForm
+   -------------------------------------------------------------
+   Visually distinct from PromptHero on purpose: lighter chrome,
+   no big glow, leading envelope icon, gradient-fill (solid)
+   button, optional footnote slot. Reads as "newsletter signup"
+   rather than "AI prompt".
    ============================================================= */
+.pui-waitlist-wrap {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: min(520px, 100%);
+  font-family: var(--pui-font-sans);
+}
 .pui-waitlist {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(15,15,22,0.85);
+  background: rgba(20, 20, 28, 0.55);
   border: 1px solid var(--pui-border-bright);
-  border-radius: 14px;
-  padding: 6px 6px 6px 16px;
-  width: min(520px, 100%);
-  box-shadow: 0 10px 40px rgba(0,0,0,0.55),
-              0 0 32px rgba(124,58,237,0.18);
-  font-family: var(--pui-font-sans);
+  border-radius: 999px;
+  padding: 5px 5px 5px 16px;
+  width: 100%;
+}
+.pui-waitlist__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--pui-fg-mute);
+  flex-shrink: 0;
 }
 .pui-waitlist__input {
   flex: 1;
+  min-width: 0;
   background: transparent;
   border: 0; outline: 0;
   color: var(--pui-fg);
+  font-family: inherit;
   font-size: 14px;
-  padding: 12px 0;
+  padding: 10px 0;
 }
 .pui-waitlist__input::placeholder { color: var(--pui-fg-mute); }
+.pui-waitlist__footnote {
+  font-size: 12px;
+  color: var(--pui-fg-mute);
+  letter-spacing: 0.02em;
+}
+/* Match the pill container's curve. */
+.pui-waitlist .pui-btn { border-radius: 999px; }
 
 /* =============================================================
    Component: CommunityBadge

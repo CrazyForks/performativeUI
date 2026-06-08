@@ -84,7 +84,7 @@ export const Aurora = forwardRef<HTMLDivElement, AuroraProps>(
           b.vx += (b.homeX - b.x) * 0.0009;
           b.vy += (b.homeY - b.y) * 0.0009;
 
-          // repulsion from every other blob — pushes them apart when
+          // repulsion from every other blob, pushes them apart when
           // they get too close
           for (let j = 0; j < state.length; j++) {
             if (i === j) continue;
@@ -108,7 +108,7 @@ export const Aurora = forwardRef<HTMLDivElement, AuroraProps>(
           b.x += b.vx;
           b.y += b.vy;
 
-          // soft walls — blobs can wander past the host edges a bit
+          // soft walls, blobs can wander past the host edges a bit
           // before being nudged back
           const min = -10;
           const max = 110;

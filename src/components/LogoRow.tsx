@@ -16,7 +16,7 @@ export interface LogoRowProps extends ComponentPropsWithoutRef<"div"> {
 }
 
 /**
- * A static row of logos for backers / press / universities — anywhere
+ * A static row of logos for backers / press / universities, anywhere
  * you'd put a "Backed by" or "As seen in" caption.
  */
 export const LogoRow = forwardRef<HTMLDivElement, LogoRowProps>(

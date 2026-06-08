@@ -18,7 +18,7 @@ export interface WordRollProps extends ComponentPropsWithoutRef<"span"> {
   direction?: "up" | "down";
   /**
    * Paint each word with the AI gradient. Use this instead of nesting
-   * inside `<GradientText>` — `background-clip: text` doesn't apply to
+   * inside `<GradientText>`, `background-clip: text` doesn't apply to
    * absolutely-positioned descendants, so the wrapping pattern paints
    * nothing.
    */
@@ -26,7 +26,7 @@ export interface WordRollProps extends ComponentPropsWithoutRef<"span"> {
 }
 
 /**
- * Vertical word roll — the active word slides into view while the previous
+ * Vertical word roll, the active word slides into view while the previous
  * one rolls out, no typing. The "supermemory.ai" / pc-agent-text effect.
  *
  *     <WordRoll words={["doctors", "lawyers", "founders"]} />

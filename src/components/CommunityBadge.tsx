@@ -16,7 +16,7 @@ export interface CommunityBadgeProps
 }
 
 /**
- * "Star us on GitHub" / "Join the Discord" — the social-proof tile.
+ * "Star us on GitHub" / "Join the Discord", the social-proof tile.
  *
  *     <CommunityBadge
  *       icon="https://cdn.jsdelivr.net/npm/simple-icons@11/icons/github.svg"
