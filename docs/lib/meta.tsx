@@ -25,8 +25,10 @@ import {
   PricingCard,
   BeforeAfter,
   WaitlistForm,
+  Popover,
   type IdeToken,
 } from "performative-ui";
+import { useState } from "react";
 import type { ComponentMeta } from "./ComponentPage";
 
 /* ------------------------------------------------------------
@@ -1580,6 +1582,127 @@ export const COMPONENTS: ComponentMeta[] = [
       { name: "leading", type: "ReactNode | false", desc: "Leading icon. Defaults to an envelope SVG; pass false to remove or any node to replace." },
       { name: "footnote", type: "ReactNode", desc: "Small line of text rendered below the form." },
       { name: "onSubmit", type: "(email: string) => void", desc: "Submit callback." },
+    ],
+  },
+
+  {
+    slug: "popover",
+    category: "Pricing & Conversion",
+    name: "Popover",
+    snark: "Built for conversion, not consent.",
+    sources: [],
+    description:
+      "The obtrusive newsletter modal every AI startup deploys. Takes over the entire viewport with a blurred backdrop. By design, neither the Escape key nor backdrop clicks close it; the visitor either submits the form inside or clicks the tiny dismissal link at the bottom. Pair with `timer` to auto-open after the visitor has skimmed a few paragraphs.",
+    examples: [
+      {
+        title: "Newsletter signup nag",
+        Demo: () => {
+          const [open, setOpen] = useState(false);
+          return (
+            <>
+              <Button variant="ghost" onClick={() => setOpen(true)}>
+                Open the popover
+              </Button>
+              <Popover
+                open={open}
+                onOpenChange={setOpen}
+                title="Subscribe to my newsletter"
+                closeLabel="No thanks, I haven't raised my seed round yet."
+              >
+                <WaitlistForm
+                  ctaLabel="Subscribe"
+                  footnote="Weekly. Reasonably unhinged."
+                  onSubmit={(email: string) => {
+                    alert("Subscribed: " + email);
+                    setOpen(false);
+                  }}
+                />
+              </Popover>
+            </>
+          );
+        },
+        code: `const [open, setOpen] = useState(false);
+
+return (
+  <>
+    <Button onClick={() => setOpen(true)}>Open the popover</Button>
+    <Popover
+      open={open}
+      onOpenChange={setOpen}
+      title="Subscribe to my newsletter"
+      closeLabel="No thanks, I haven't raised my seed round yet."
+    >
+      <WaitlistForm
+        ctaLabel="Subscribe"
+        footnote="Weekly. Reasonably unhinged."
+        onSubmit={(email) => {
+          subscribe(email);
+          setOpen(false); // submitting closes it
+        }}
+      />
+    </Popover>
+  </>
+);`,
+      },
+      {
+        title: "Auto-open after a timer (arm to demo)",
+        Demo: () => {
+          const [armed, setArmed] = useState(false);
+          const [popKey, setPopKey] = useState(0);
+          if (!armed) {
+            return (
+              <Button
+                variant="ghost"
+                onClick={() => {
+                  setPopKey((k) => k + 1);
+                  setArmed(true);
+                }}
+              >
+                Arm 3-second timer
+              </Button>
+            );
+          }
+          return (
+            <Popover
+              key={popKey}
+              timer={3000}
+              onOpenChange={(o) => !o && setArmed(false)}
+              title="You've been here 3 seconds"
+              closeLabel="No thanks, I haven't raised my seed round yet."
+            >
+              <p style={{ margin: 0, color: "var(--pui-fg-dim)", lineHeight: 1.55 }}>
+                Now that we have your attention.
+              </p>
+              <WaitlistForm
+                ctaLabel="Subscribe"
+                onSubmit={(email: string) => {
+                  alert("Subscribed: " + email);
+                  setArmed(false);
+                }}
+              />
+            </Popover>
+          );
+        },
+        code: `<Popover
+  timer={3000}
+  title="You've been here 3 seconds"
+  closeLabel="No thanks, I haven't raised my seed round yet."
+>
+  <WaitlistForm onSubmit={…} />
+</Popover>`,
+      },
+    ],
+    props: [
+      { name: "open", type: "boolean", desc: "Controlled open state." },
+      { name: "defaultOpen", type: "boolean", desc: "Uncontrolled initial state." },
+      { name: "onOpenChange", type: "(open: boolean) => void", desc: "Open-state callback." },
+      { name: "timer", type: "number", default: "0", desc: "ms before auto-opening once mounted. 0 disables." },
+      { name: "title", type: "ReactNode", desc: "Title at the top of the popover." },
+      { name: "children", type: "ReactNode", desc: "Body content (e.g. a WaitlistForm)." },
+      { name: "closeLabel", type: "ReactNode | false", default: '"Maybe later"', desc: "Small dismissal link rendered under the body. false to hide." },
+      { name: "closeOnEscape", type: "boolean", default: "false", desc: "Allow the Escape key to close. Default false (obtrusive by design)." },
+      { name: "closeOnBackdrop", type: "boolean", default: "false", desc: "Allow backdrop clicks to close. Default false." },
+      { name: "container", type: "HTMLElement | null", desc: "Portal target. Defaults to document.body so the popover covers the viewport." },
     ],
   },
 ];

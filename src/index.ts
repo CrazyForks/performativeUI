@@ -78,6 +78,7 @@ export {
 export { PricingCard, type PricingCardProps } from "./components/PricingCard";
 export { BeforeAfter, type BeforeAfterProps } from "./components/BeforeAfter";
 export { WaitlistForm, type WaitlistFormProps } from "./components/WaitlistForm";
+export { Popover, type PopoverProps } from "./components/Popover";
 
 // Hooks (escape hatches for headless usage)
 export {

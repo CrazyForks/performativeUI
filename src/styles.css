@@ -1372,6 +1372,84 @@ button:hover > .pui-arrow,
 .pui-waitlist .pui-btn { border-radius: 999px; }
 
 /* =============================================================
+   Component: Popover (the obtrusive newsletter / signup modal)
+   ============================================================= */
+.pui-popover-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  font-family: var(--pui-font-sans);
+}
+/* Heavy blur + theme-aware scrim so the page underneath is
+   meaningfully obscured in both light and dark mode. */
+.pui-popover-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+}
+[data-theme="light"] .pui-popover-backdrop {
+  background: rgba(245, 245, 250, 0.7);
+}
+.pui-popover {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  padding: 28px 28px 18px;
+  background: var(--pui-bg-elev);
+  border: 1px solid var(--pui-border-bright);
+  border-radius: var(--pui-radius-xl);
+  box-shadow: var(--pui-shadow-deep),
+              0 0 0 1px rgba(124, 58, 237, 0.18),
+              0 0 60px rgba(124, 58, 237, 0.2);
+  color: var(--pui-fg);
+  animation: pui-popover-in 320ms var(--pui-ease);
+}
+@keyframes pui-popover-in {
+  0%   { opacity: 0; transform: translateY(18px) scale(0.96); }
+  100% { opacity: 1; transform: translateY(0)    scale(1); }
+}
+.pui-popover__title {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  margin: 0 0 16px;
+  color: var(--pui-fg);
+}
+.pui-popover__body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.pui-popover__dismiss {
+  display: block;
+  margin: 16px auto 0;
+  padding: 8px 12px;
+  background: transparent;
+  border: 0;
+  color: var(--pui-fg-mute);
+  font-family: inherit;
+  font-size: 13px;
+  font-style: italic;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 3px;
+  transition: color 160ms var(--pui-ease),
+              text-decoration-color 160ms var(--pui-ease);
+}
+.pui-popover__dismiss:hover {
+  color: var(--pui-fg-dim);
+  text-decoration-color: currentColor;
+}
+
+/* =============================================================
    Component: CommunityBadge
    ============================================================= */
 .pui-community {
