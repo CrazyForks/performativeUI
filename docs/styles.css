@@ -219,9 +219,16 @@ a { color: inherit; }
     var(--pui-bg);
 }
 /* Stretch demos drop the 36px padding so the inner content can go
-   full-bleed, but keep the parent's flex centering so short content
-   (like LogoMarquee, StickyBanner) sits vertically centered. */
-.example__demo--stretch { padding: 0; }
+   full-bleed. Switch to a column flex so children stretch across
+   the horizontal axis (Aurora / FloatingSparkles wrappers have no
+   width and would otherwise collapse to 0), while justify-content
+   keeps short content (LogoMarquee, banners) vertically centered. */
+.example__demo--stretch {
+  padding: 0;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+}
 .example__demo--inverted { background: var(--pui-bg-soft); }
 .example__code {
   border-top: 1px solid var(--pui-border);
