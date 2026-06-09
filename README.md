@@ -44,6 +44,11 @@ npm install performative-ui
 Visit **[the documentation](https://vorpus.github.io/performativeUI/)** for the
 full component catalog, live demos, and API reference.
 
+## Community Ports
+
+- [performative-ui-svelte](https://github.com/adv0r/performative-ui-svelte) —
+  a community Svelte 5 port of the component catalog.
+
 ## Star History
 
 <a href="https://www.star-history.com/?repos=vorpus%2FperformativeUI&type=date&legend=top-left">
