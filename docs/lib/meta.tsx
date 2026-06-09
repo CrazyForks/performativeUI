@@ -20,6 +20,7 @@ import {
   ChatFAB,
   LogoMarquee,
   LogoRow,
+  SlippyWords,
   StatCounter,
   CommunityBadge,
   PricingCard,
@@ -1298,6 +1299,94 @@ export const COMPONENTS: ComponentMeta[] = [
     props: [
       { name: "heading", type: "ReactNode", desc: "Uppercase header copy." },
       { name: "logos", type: "LogoRowItem[]", required: true, desc: "Mix of img/node entries." },
+    ],
+  },
+
+  {
+    slug: "slippy-words",
+    category: "Social Proof",
+    name: "SlippyWords",
+    snark: "Buzzwords that physically move when you scroll. Motion design, allegedly.",
+    sources: [
+      { name: "cursor.com", url: "https://cursor.com" },
+      { name: "vercel.com", url: "https://vercel.com" },
+      { name: "framer.com", url: "https://framer.com" },
+    ],
+    extra: 388,
+    description:
+      "Two or more rows of word badges that slide horizontally in alternating directions, driven by scroll position. Give each row more badges than fit so the edges never run dry. Pair it with an edge fade for the obligatory kinetic-typography strip. Honors prefers-reduced-motion (badges wrap and sit still).",
+    examples: [
+      {
+        title: "Scroll the page to see them slide",
+        stretch: true,
+        Demo: () => (
+          <SlippyWords
+            rows={[
+              ["agentic", "multimodal", "RAG-native", "zero-shot", "fine-tuned", "frontier-grade", "context-aware"],
+              ["SOC 2", "HIPAA", "on-prem", "GDPR-ready", "sub-100ms", "infinitely scalable", "enterprise"],
+              ["10x faster", "human-in-the-loop", "self-healing", "observable", "vector-first", "real-time"],
+            ]}
+          />
+        ),
+        code: `<SlippyWords
+  rows={[
+    ["agentic", "multimodal", "RAG-native", "zero-shot", "fine-tuned"],
+    ["SOC 2", "HIPAA", "on-prem", "GDPR-ready", "enterprise"],
+    ["10x faster", "human-in-the-loop", "self-healing", "real-time"],
+  ]}
+/>`,
+      },
+      {
+        title: "Gradient fill + stronger travel",
+        stretch: true,
+        Demo: () => (
+          <SlippyWords
+            gradient
+            intensity={360}
+            startDirection="right"
+            rows={[
+              ["ship", "scale", "synergize", "disrupt", "iterate", "pivot", "10x"],
+              ["velocity", "alignment", "north star", "moat", "flywheel", "tailwinds"],
+            ]}
+          />
+        ),
+        code: `<SlippyWords
+  gradient
+  intensity={360}
+  startDirection="right"
+  rows={[
+    ["ship", "scale", "synergize", "disrupt", "iterate", "pivot"],
+    ["velocity", "alignment", "north star", "moat", "flywheel"],
+  ]}
+/>`,
+      },
+      {
+        title: "Per-badge gradient highlight",
+        stretch: true,
+        Demo: () => (
+          <SlippyWords
+            rows={[
+              ["GPT-class", { label: "now with reasoning", gradient: true }, "open weights", "MoE", "128k context"],
+              ["BYO model", "edge inference", { label: "$0 to start", gradient: true }, "usage-based", "no lock-in"],
+            ]}
+          />
+        ),
+        code: `<SlippyWords
+  rows={[
+    ["GPT-class", { label: "now with reasoning", gradient: true }, "open weights"],
+    ["BYO model", "edge inference", { label: "$0 to start", gradient: true }],
+  ]}
+/>`,
+      },
+    ],
+    props: [
+      { name: "rows", type: "SlippyWord[][]", required: true, desc: "Rows of badges. A SlippyWord is a string or { label, key?, gradient? }." },
+      { name: "intensity", type: "number", default: "240", desc: "Max horizontal travel in px across the full scroll range." },
+      { name: "startDirection", type: '"left" | "right"', default: '"left"', desc: "Direction the first row drifts on scroll down; rows alternate." },
+      { name: "gap", type: "number", default: "12", desc: "Gap between badges (and between rows) in px." },
+      { name: "fade", type: "boolean", default: "true", desc: "Apply an edge-fade mask so badges dissolve at the sides." },
+      { name: "gradient", type: "boolean", default: "false", desc: "Render every badge with the gradient fill." },
+      { name: "static", type: "boolean", default: "false", desc: "Disable scroll coupling. Also forced under prefers-reduced-motion." },
     ],
   },
 

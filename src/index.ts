@@ -68,6 +68,11 @@ export {
   type LogoRowProps,
   type LogoRowItem,
 } from "./components/LogoRow";
+export {
+  SlippyWords,
+  type SlippyWordsProps,
+  type SlippyWord,
+} from "./components/SlippyWords";
 export { StatCounter, type StatCounterProps } from "./components/StatCounter";
 export {
   CommunityBadge,
