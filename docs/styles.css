@@ -466,7 +466,6 @@ a { color: inherit; }
   .docs { grid-template-columns: 1fr; }
   .docs__main { padding: 32px 24px 100px; }
   .home-hero, .home-grid { padding-left: 24px; padding-right: 24px; }
-
   /* Hamburger toggle, fixed top-right, always above everything.
      Sized for a comfortable thumb tap (48×48, above the 44-Apple /
      48-Google minimums) regardless of page zoom or content size.

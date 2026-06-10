@@ -48,6 +48,9 @@ full component catalog, live demos, and API reference.
 
 - [performative-ui-svelte](https://github.com/adv0r/performative-ui-svelte) —
   a community Svelte 5 port of the component catalog.
+- [benjamin-brady/performative-ui-svelte](https://github.com/benjamin-brady/performative-ui-svelte) —
+  a Svelte 5 port with live docs at
+  [benjamin-brady.github.io/performative-ui-svelte](https://benjamin-brady.github.io/performative-ui-svelte/).
 
 ## Star History
 
