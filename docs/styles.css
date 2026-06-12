@@ -10,6 +10,18 @@ html, body, #root {
   margin: 0;
   min-height: 100%;
 }
+html {
+  /* Stop iOS Safari from auto-bumping body text up to its idea
+     of "readable", which can push content past the viewport. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+body {
+  /* Last-line defense: if any descendant still escapes our cascade
+     of min-width: 0 fixes, clip the overflow instead of granting
+     a page-wide horizontal scrollbar. */
+  overflow-x: hidden;
+}
 * { box-sizing: border-box; }
 a { color: inherit; }
 
@@ -23,6 +35,12 @@ a { color: inherit; }
   padding: 56px 56px 120px;
   max-width: 920px;
   width: 100%;
+  /* Critical for mobile: grid items default to min-width: auto, which
+     lets wide intrinsic children (pre.code-block, tables) push the
+     grid column past the viewport. Setting min-width: 0 lets the
+     column shrink and individual children handle their own overflow
+     (code blocks scroll horizontally inside their box). */
+  min-width: 0;
 }
 
 /* ---------- Sidebar ---------- */
@@ -197,6 +215,7 @@ a { color: inherit; }
   overflow: hidden;
   margin-bottom: 22px;
   background: var(--pui-bg-elev);
+  min-width: 0;
 }
 .example__title {
   padding: 10px 16px;
@@ -233,6 +252,7 @@ a { color: inherit; }
 .example__code {
   border-top: 1px solid var(--pui-border);
   position: relative;
+  min-width: 0;
 }
 /* Code blocks stay dark regardless of theme — universal convention
    for syntax-highlighted code. Pinning via :where to keep specificity
@@ -458,13 +478,70 @@ a { color: inherit; }
   color: var(--pui-fg-dim);
 }
 
+/* ---------- Mobile demo + table tightening ---------- */
+@media (max-width: 860px) {
+  .docs__main { padding: 32px 16px 100px; }
+  .example__demo { padding: 16px; }
+  .example__title { padding: 9px 14px; }
+  .cp-title { font-size: clamp(28px, 9vw, 44px); }
+  .cp-description, .cp-snark { font-size: 15px; }
+  /* Props table — wrap the table in its own scroll container so it
+     never pushes the page wider than the viewport. */
+  .props {
+    display: block;
+    overflow-x: auto;
+    font-size: 12.5px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .props th, .props td { padding: 10px 10px; }
+  /* Code blocks ship pre-formatted text. Keep horizontal scroll
+     inside the box, never on the page. */
+  .code-block { font-size: 12px; padding: 14px 16px; }
+  /* Keep the next-card on a single row even at narrow widths;
+     ellipsize the component name if it can't fit. */
+  .cp-skim-next {
+    gap: 10px;
+    padding: 14px 16px;
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+  .cp-skim-next__name {
+    font-size: 16px;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .cp-skim-next__label { flex-shrink: 0; }
+  .cp-skim-next__arrow { flex-shrink: 0; }
+}
+@media (max-width: 420px) {
+  .docs__main { padding: 28px 12px 100px; }
+  .example__demo { padding: 14px; }
+  /* Drop the keyboard-hint chip on the smallest phones so the
+     component name has more room before being ellipsized. */
+  .cp-skim-next__hint { display: none; }
+  /* Keep demo headlines from overflowing on the tightest phones.
+     Targets the inline-styled h1/h2 inside demos (Sparkle, GradientText, etc.). */
+  .example__demo h1,
+  .example__demo h2 {
+    font-size: clamp(20px, 8.5vw, 36px) !important;
+    line-height: 1.1 !important;
+    word-break: break-word;
+  }
+  .example__demo > div > h1,
+  .example__demo > div > h2 { max-width: 100%; }
+  .props th, .props td { padding: 9px 8px; }
+}
+
 /* ---------- Mobile chrome (hamburger + drawer) ---------- */
 .docs__menu-btn { display: none; }
 .docs__backdrop { display: none; }
 
 @media (max-width: 860px) {
   .docs { grid-template-columns: 1fr; }
-  .docs__main { padding: 32px 24px 100px; }
+  .docs > * { min-width: 0; }
   .home-hero, .home-grid { padding-left: 24px; padding-right: 24px; }
   /* Hamburger toggle, fixed top-right, always above everything.
      Sized for a comfortable thumb tap (48×48, above the 44-Apple /
