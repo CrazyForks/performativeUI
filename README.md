@@ -35,6 +35,10 @@
 
 ---
 
+## As seen in
+
+- [Gigazine](https://gigazine.net/news/20260609-performative-ui/), it's in japanese so you know it's important.
+
 ## Install
 
 ```bash
@@ -46,11 +50,8 @@ full component catalog, live demos, and API reference.
 
 ## Community Ports
 
-- [performative-ui-svelte](https://github.com/adv0r/performative-ui-svelte) —
-  a community Svelte 5 port of the component catalog.
-- [benjamin-brady/performative-ui-svelte](https://github.com/benjamin-brady/performative-ui-svelte) —
-  a Svelte 5 port with live docs at
-  [benjamin-brady.github.io/performative-ui-svelte](https://benjamin-brady.github.io/performative-ui-svelte/).
+- [performative-ui-svelte](https://github.com/adv0r/performative-ui-svelte), a community Svelte 5 port of the component catalog.
+- [benjamin-brady/performative-ui-svelte](https://github.com/benjamin-brady/performative-ui-svelte), another svelte port because svelte developers can't get along. [live docs](https://benjamin-brady.github.io/performative-ui-svelte/).
 
 ## Star History
 

@@ -1171,10 +1171,10 @@ export const COMPONENTS: ComponentMeta[] = [
     slug: "wibbling-spinner",
     category: "Conversation",
     name: "WibblingSpinner",
-    snark: "Loading state with a sense of humor.",
+    snark: "If you haven't replaced yours with a banner ad yet.",
     sources: [],
     description:
-      "The Claude Code loading spinner. Cycles a glyph through `· ✢ ✳ ✶ ✻ ✽` and picks a verb out of the 186-word Claude pool (Accomplishing, Befuddling, Caramelizing, Whirlpooling, Wibbling, ...). By default it picks one verb at mount and leaves it; pass `verbInterval` to make it re-roll on a timer. Pin a single verb by passing `verbs={[\"Hardcoding\"]}`. Pass `info` for the trailing parenthetical you'd see in the real thing.",
+      "Use Claude's verbs or bring your own. The 186-word default pool ships verbatim from Claude Code, glyph cycle and all. Convincing the visitor something interesting is happening is now a one-line component.",
     examples: [
       {
         title: "Custom color + cycling verbs",
