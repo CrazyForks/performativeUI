@@ -70,6 +70,18 @@
   --pui-button-dark-popover-fill: linear-gradient(180deg, #11111a, #0a0a12);
   --pui-button-dark-border:       rgba(255, 255, 255, 0.08);
 
+  /* Shimmer button sweep. White-on-dark by default; flipped in light. */
+  --pui-shimmer-sweep:      rgba(255, 255, 255, 0.30);
+  --pui-shimmer-sweep-edge: rgba(255, 255, 255, 0.08);
+
+  /* Wave button text + border. The cool blue reads against the dark
+     elev fill; light mode swaps to a saturated indigo that survives
+     on white. */
+  --pui-wave-text:         rgb(180, 200, 235);
+  --pui-wave-text-hover:   rgb(210, 225, 245);
+  --pui-wave-border:       rgba(124, 156, 220, 0.22);
+  --pui-wave-border-hover: rgba(124, 156, 220, 0.35);
+
   /* Chat user bubble gradient. */
   --pui-bubble-user-fill: linear-gradient(135deg, #1a1a26, #11111a);
 
@@ -131,6 +143,18 @@
   --pui-button-dark-fill:         linear-gradient(180deg, #ffffff, #f4f4f8);
   --pui-button-dark-popover-fill: linear-gradient(180deg, #ffffff, #f0f0f5);
   --pui-button-dark-border:       rgba(0, 0, 0, 0.12);
+
+  /* Shimmer sweep flips to a soft dark stripe so the movement reads
+     on the light fill. */
+  --pui-shimmer-sweep:      rgba(15, 15, 30, 0.22);
+  --pui-shimmer-sweep-edge: rgba(15, 15, 30, 0.05);
+
+  /* Wave button text + border: soft pastel lavender. Light enough
+     to feel airy on white, dark enough to still read. */
+  --pui-wave-text:         rgb(140, 122, 188);
+  --pui-wave-text-hover:   rgb(112, 96, 162);
+  --pui-wave-border:       rgba(196, 174, 232, 0.65);
+  --pui-wave-border-hover: rgba(170, 144, 220, 0.80);
 
   --pui-bubble-user-fill: linear-gradient(135deg, #f6f6fa, #e8e8ee);
 
@@ -414,9 +438,9 @@ button:hover > .pui-arrow,
   padding: 6px 14px 7px;
   border-style: solid;
   border-width: 1px 1px 2px;
-  border-color: rgba(124, 156, 220, 0.22);
+  border-color: var(--pui-wave-border);
   border-radius: 999px;
-  color: rgb(180, 200, 235);
+  color: var(--pui-wave-text);
   font-weight: 500;
   font-size: 13px;
   background-color: transparent;
@@ -470,8 +494,8 @@ button:hover > .pui-arrow,
   z-index: -1;
 }
 .pui-btn--wave:hover {
-  color: rgb(210, 225, 245);
-  border-color: rgba(124, 156, 220, 0.35);
+  color: var(--pui-wave-text-hover);
+  border-color: var(--pui-wave-border-hover);
 }
 .pui-btn--wave:disabled,
 .pui-btn--wave[aria-busy="true"] {
@@ -522,9 +546,9 @@ button:hover > .pui-arrow,
   width: 60%; height: 100%;
   background: linear-gradient(115deg,
     transparent 0%,
-    rgba(255,255,255,0.08) 35%,
-    rgba(255,255,255,0.30) 50%,
-    rgba(255,255,255,0.08) 65%,
+    var(--pui-shimmer-sweep-edge) 35%,
+    var(--pui-shimmer-sweep) 50%,
+    var(--pui-shimmer-sweep-edge) 65%,
     transparent 100%);
   animation: pui-shimmer 3.5s ease-in-out infinite;
 }
@@ -1609,3 +1633,117 @@ button:hover > .pui-arrow,
   box-sizing: border-box;
   color: inherit;
 }
+
+/* ============================ QuestText ============================ */
+.pui-quest {
+  display: inline-block;
+  font-family:
+    "RuneScape UF", "RuneScape Bold 07",
+    "runescape_chat_bold_07regular",
+    "Press Start 2P",
+    ui-monospace, monospace;
+  color: #FFFF00;
+  text-shadow: 1px 1px #000;
+  vertical-align: baseline;
+  line-height: 1.2;
+}
+.pui-quest__char {
+  display: inline-block;
+  will-change: transform;
+}
+.pui-quest__motion {
+  display: inline-block;
+}
+
+/* --- Motion: wave (per-char vertical bob; parent class delivers
+   timing, each char gets a negative animation-delay so the wave
+   travels through the word from the first frame). --- */
+@keyframes pui-quest-wave {
+  0%   { transform: translateY(0); }
+  25%  { transform: translateY(5px); }
+  50%  { transform: translateY(0); }
+  75%  { transform: translateY(-5px); }
+  100% { transform: translateY(0); }
+}
+.pui-quest--wave .pui-quest__char {
+  animation: pui-quest-wave 0.66s linear infinite;
+}
+
+/* --- Motion: scroll (marquee via text-indent on an inner span so
+   color animations on the parent don't collide with the motion
+   animation; parent clips). --- */
+@keyframes pui-quest-scroll {
+  0%   { text-indent: 500px; }
+  100% { text-indent: -20em; }
+}
+.pui-quest--scroll {
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 100%;
+}
+.pui-quest__scroll {
+  display: inline-block;
+  white-space: nowrap;
+  animation: pui-quest-scroll 8s linear infinite;
+}
+
+/* --- Motion: slide (vertical enter-hold-exit on an inner span,
+   loops). --- */
+@keyframes pui-quest-slide {
+  0%        { top: -1.5em; }
+  20%, 80%  { top: 0; }
+  100%      { top: 1.5em; }
+}
+.pui-quest--slide {
+  overflow: hidden;
+  padding: 0.5em 0;
+}
+.pui-quest__slide {
+  display: inline-block;
+  position: relative;
+  animation: pui-quest-slide 3s linear infinite;
+}
+
+/* --- Color: flash (hard-cut between two pure colors via steps). --- */
+@keyframes pui-quest-flash1 {
+  0%, 49.999% { color: #FF0000; }
+  50%, 100%   { color: #FFFF00; }
+}
+@keyframes pui-quest-flash2 {
+  0%, 49.999% { color: #0000FF; }
+  50%, 100%   { color: #00FFFF; }
+}
+@keyframes pui-quest-flash3 {
+  0%, 49.999% { color: #00B000; }
+  50%, 100%   { color: #80FF80; }
+}
+.pui-quest--flash1 { animation: pui-quest-flash1 0.45s steps(1, end) infinite; }
+.pui-quest--flash2 { animation: pui-quest-flash2 0.45s steps(1, end) infinite; }
+.pui-quest--flash3 { animation: pui-quest-flash3 0.45s steps(1, end) infinite; }
+
+/* --- Color: glow (smooth cycle through 3-4 pure colors). The
+   "glow" name is the source's; visually it's a slow color shift,
+   not a radiant halo. --- */
+@keyframes pui-quest-glow1 {
+  0%   { color: #FF0000; }
+  33%  { color: #00B000; }
+  66%  { color: #0000FF; }
+  100% { color: #FF0000; }
+}
+@keyframes pui-quest-glow2 {
+  0%   { color: #FF0000; }
+  33%  { color: #800080; }
+  66%  { color: #0000FF; }
+  100% { color: #FF0000; }
+}
+@keyframes pui-quest-glow3 {
+  0%    { color: #FFFFFF; }
+  25%   { color: #00B000; }
+  50%   { color: #FFFFFF; }
+  67.5% { color: #00FFFF; }
+  75%   { color: #0000FF; }
+  100%  { color: #FFFFFF; }
+}
+.pui-quest--glow1 { animation: pui-quest-glow1 3s linear infinite; }
+.pui-quest--glow2 { animation: pui-quest-glow2 3s linear infinite; }
+.pui-quest--glow3 { animation: pui-quest-glow3 3s linear infinite; }

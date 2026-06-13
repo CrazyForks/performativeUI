@@ -2,6 +2,7 @@ import {
   Sparkle,
   GradientText,
   StatusDot,
+  QuestText,
   Button,
   StickyBanner,
   EyebrowPill,
@@ -213,6 +214,59 @@ export const COMPONENTS: ComponentMeta[] = [
     props: [
       { name: "color", type: "string", default: "var(--pui-success)", desc: "CSS color." },
       { name: "static", type: "boolean", desc: "Disable the pulse." },
+    ],
+  },
+
+  {
+    slug: "quest-text",
+    category: "Atoms",
+    name: "QuestText",
+    snark: "you never quit, you just took a break",
+    sources: [],
+    extra: 20,
+    description:
+      "Retro chat text effects. Stack one animation (`wave`, `scroll`, `slide`) with one color treatment (`flash1-3` hard-cut between two pure colors, `glow1-3` smooth-cycle through 3-4). The `color` prop also accepts any CSS color string for a static color. Font stack falls back to `Press Start 2P` then mono, so it looks pixely even without a custom pixel font loaded.",
+    examples: [
+      {
+        title: "Wave + glow1",
+        Demo: () => (
+          <div style={{ fontSize: 18 }}>
+            <QuestText text="buying gf!!" animation="wave" color="glow1" />
+          </div>
+        ),
+        code: `<QuestText text="buying gf!!" animation="wave" color="glow1" />`,
+      },
+      {
+        title: "Scroll + flash3",
+        Demo: () => (
+          <div style={{ fontSize: 18, width: 320 }}>
+            <QuestText
+              text="how i mine for fish"
+              animation="scroll"
+              color="flash3"
+            />
+          </div>
+        ),
+        code: `<QuestText text="how i mine for fish" animation="scroll" color="flash3" />`,
+      },
+      {
+        title: "Slide + glow2",
+        Demo: () => (
+          <div style={{ fontSize: 18 }}>
+            <QuestText
+              text="leveling life skill"
+              animation="slide"
+              color="glow2"
+            />
+          </div>
+        ),
+        code: `<QuestText text="leveling life skill" animation="slide" color="glow2" />`,
+      },
+    ],
+    props: [
+      { name: "text", type: "string", required: true, desc: "The text to render." },
+      { name: "animation", type: '"wave" | "scroll" | "slide"', default: '"wave"', desc: "Motion treatment." },
+      { name: "color", type: '"flash1" | "flash2" | "flash3" | "glow1" | "glow2" | "glow3" | string', default: '"glow1"', desc: "Named preset or any CSS color string. Custom colors get an auto-tinted text-shadow." },
     ],
   },
 

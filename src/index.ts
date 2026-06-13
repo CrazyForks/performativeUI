@@ -10,6 +10,13 @@ import "./styles.css";
 export { Sparkle, type SparkleProps } from "./components/Sparkle";
 export { GradientText, type GradientTextProps } from "./components/GradientText";
 export { StatusDot, type StatusDotProps } from "./components/StatusDot";
+export {
+  QuestText,
+  type QuestTextProps,
+  type QuestTextAnimation,
+  type QuestTextPreset,
+  type QuestTextColor,
+} from "./components/QuestText";
 
 // Primitives
 export {
