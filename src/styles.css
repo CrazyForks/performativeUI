@@ -1547,3 +1547,65 @@ button:hover > .pui-arrow,
 .pui-community__icon { width: 28px; height: 28px; opacity: 0.85; filter: var(--pui-logo-filter); }
 .pui-community__top { font-size: 14px; font-weight: 600; }
 .pui-community__bottom { margin-top: 2px; font-size: 12px; color: var(--pui-fg-mute); font-family: var(--pui-font-mono); }
+
+/* ============================ Goldeneye ============================ */
+.pui-goldeneye {
+  position: relative;
+  width: 100%;
+  min-height: 360px;
+  background: var(--pui-bg);
+  overflow: hidden;
+  cursor: crosshair;
+  isolation: isolate;
+  user-select: none;
+  border-radius: inherit;
+}
+.pui-goldeneye__base,
+.pui-goldeneye__scope {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.pui-goldeneye__base { color: var(--pui-fg); }
+.pui-goldeneye__scope {
+  background: var(--pui-fg);
+  color: var(--pui-bg);
+  will-change: clip-path;
+}
+.pui-goldeneye__pattern {
+  position: absolute;
+  inset: 0;
+  font-family: var(--pui-font-mono);
+  line-height: 2;
+  letter-spacing: 0.55em;
+  color: inherit;
+  opacity: 0.32;
+  overflow: hidden;
+  padding: 6px 10px;
+  box-sizing: border-box;
+}
+.pui-goldeneye__pattern-row {
+  white-space: nowrap;
+  overflow: hidden;
+}
+.pui-goldeneye__pattern-row:nth-child(even) {
+  padding-left: 1em;
+}
+.pui-goldeneye__headline {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--pui-goldeneye-font, var(--pui-font-sans));
+  font-weight: 900;
+  font-size: var(--pui-goldeneye-headline-size, clamp(48px, 11vw, 160px));
+  line-height: 1;
+  letter-spacing: -0.04em;
+  text-align: center;
+  white-space: nowrap;
+  padding: 0 4vw;
+  box-sizing: border-box;
+  color: inherit;
+}

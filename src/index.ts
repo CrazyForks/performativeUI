@@ -27,6 +27,7 @@ export { WordRoll, type WordRollProps } from "./components/WordRoll";
 export { PromptHero, type PromptHeroProps } from "./components/PromptHero";
 export { Prompt, type PromptProps } from "./components/Prompt";
 export { AsciiHero, type AsciiHeroProps } from "./components/AsciiHero";
+export { Goldeneye, type GoldeneyeProps } from "./components/Goldeneye";
 
 // Backgrounds
 export { Aurora, type AuroraProps } from "./components/Aurora";

@@ -10,6 +10,7 @@ import {
   PromptHero,
   Prompt,
   AsciiHero,
+  Goldeneye,
   Aurora,
   NodeGraphBackground,
   FloatingSparkles,
@@ -743,6 +744,67 @@ export const COMPONENTS: ComponentMeta[] = [
       { name: "spotlightOpacity", type: "number", desc: "Alpha at the cursor center; falls off radially to baseOpacity." },
       { name: "spotlightRadius", type: "number", default: "8", desc: "Cursor spotlight radius (cells)." },
       { name: "frameMs", type: "number", default: "50", desc: "Frame throttle (ms)." },
+    ],
+  },
+
+  {
+    slug: "goldeneye",
+    category: "Heroes",
+    name: "Goldeneye",
+    snark: "Make them earn it.",
+    sources: [
+      { name: "mimo.xiaomi.com", url: "https://mimo.xiaomi.com" },
+    ],
+    extra: 20,
+    description:
+      "A reveal-on-hover headline over a tiled-letter background. The page shows `text_default` on a field of small repeating letters; a circular scope follows the cursor and swaps it for `text_reveal` on an inverted plate, with the background pattern resized inside the scope. Polarity flips with the theme automatically. Move your mouse over the demos.",
+    examples: [
+      {
+        title: "Basic",
+        stretch: true,
+        Demo: () => (
+          <div style={{ padding: 0 }}>
+            <Goldeneye text_default="AGENTIC" text_reveal="if/else" />
+          </div>
+        ),
+        code: `<Goldeneye text_default="AGENTIC" text_reveal="if/else" />`,
+      },
+      {
+        title: "Serif face, shrunk-not-grown pattern",
+        stretch: true,
+        Demo: () => (
+          <div style={{ padding: 0 }}>
+            <Goldeneye
+              text_default="ZERO TO ONE"
+              text_reveal="ZERO TO TWO"
+              pattern="0 1 0 1 "
+              pattern_size_default={20}
+              pattern_size_reveal={11}
+              fontFamily="'Instrument Serif', ui-serif, Georgia, serif"
+              scopeSize={260}
+            />
+          </div>
+        ),
+        code: `<Goldeneye
+  text_default="ZERO TO ONE"
+  text_reveal="ZERO TO TWO"
+  pattern="0 1 0 1 "
+  pattern_size_default={20}
+  pattern_size_reveal={11}
+  fontFamily="'Instrument Serif', ui-serif, Georgia, serif"
+  scopeSize={260}
+/>`,
+      },
+    ],
+    props: [
+      { name: "text_default", type: "string", required: true, desc: "Headline shown on the page, outside the scope." },
+      { name: "text_reveal", type: "string", required: true, desc: "Headline revealed inside the scope as the cursor passes over." },
+      { name: "pattern", type: "string", default: '"0 1 0 1 "', desc: "Tiled-letter background. Even rows are offset by half a tile so the grid reads as a diamond lattice." },
+      { name: "pattern_size_default", type: "number", default: "14", desc: "Pattern font size (px) outside the scope." },
+      { name: "pattern_size_reveal", type: "number", default: "22", desc: "Pattern font size (px) inside the scope." },
+      { name: "scopeSize", type: "number", default: "320", desc: "Diameter of the reveal scope, in px." },
+      { name: "fontSize", type: "number | string", default: "clamp(48px, 11vw, 160px)", desc: "Headline font size. Number = px; string = any CSS length (clamp, vw, etc.)." },
+      { name: "fontFamily", type: "string", desc: "CSS font-family for the headline. Defaults to the library sans (the pattern always uses mono)." },
     ],
   },
 
