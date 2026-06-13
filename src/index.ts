@@ -55,6 +55,12 @@ export {
   type ChatRole,
 } from "./components/ChatBubble";
 export { TokenStream, type TokenStreamProps } from "./components/TokenStream";
+export {
+  WibblingSpinner,
+  type WibblingSpinnerProps,
+  DEFAULT_VERBS as WIBBLING_SPINNER_VERBS,
+  DEFAULT_GLYPHS as WIBBLING_SPINNER_GLYPHS,
+} from "./components/WibblingSpinner";
 export { ChatFAB, type ChatFABProps } from "./components/ChatFAB";
 
 // Social proof

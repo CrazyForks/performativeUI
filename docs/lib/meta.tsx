@@ -17,6 +17,7 @@ import {
   MockIDE,
   ChatBubble,
   TokenStream,
+  WibblingSpinner,
   ChatFAB,
   LogoMarquee,
   LogoRow,
@@ -29,7 +30,32 @@ import {
   Popover,
   type IdeToken,
 } from "performative-ui";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+/**
+ * Helpers for the WibblingSpinner "live info child" demo. Defined at
+ * module scope so React treats them as stable component types, their
+ * own state updates don't propagate to the parent demo.
+ */
+function ElapsedSeconds() {
+  const [n, setN] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setN((x) => x + 1), 1000);
+    return () => clearInterval(id);
+  }, []);
+  return <>{n}s</>;
+}
+function LiveTokens() {
+  const [n, setN] = useState(0);
+  useEffect(() => {
+    const id = setInterval(
+      () => setN((x) => x + Math.floor(Math.random() * 18) + 4),
+      80,
+    );
+    return () => clearInterval(id);
+  }, []);
+  return <>{n}</>;
+}
 import type { ComponentMeta } from "./ComponentPage";
 
 /* ------------------------------------------------------------
@@ -1138,6 +1164,95 @@ export const COMPONENTS: ComponentMeta[] = [
       { name: "loopDelayMs", type: "number", default: "6000", desc: "Pause before restarting." },
       { name: "hideCaret", type: "boolean", desc: "Hide the trailing caret." },
       { name: "onComplete", type: "() => void", desc: "Fired when full text is shown." },
+    ],
+  },
+
+  {
+    slug: "wibbling-spinner",
+    category: "Conversation",
+    name: "WibblingSpinner",
+    snark: "Loading state with a sense of humor.",
+    sources: [],
+    description:
+      "The Claude Code loading spinner. Cycles a glyph through `· ✢ ✳ ✶ ✻ ✽` and picks a verb out of the 186-word Claude pool (Accomplishing, Befuddling, Caramelizing, Whirlpooling, Wibbling, ...). By default it picks one verb at mount and leaves it; pass `verbInterval` to make it re-roll on a timer. Pin a single verb by passing `verbs={[\"Hardcoding\"]}`. Pass `info` for the trailing parenthetical you'd see in the real thing.",
+    examples: [
+      {
+        title: "Custom color + cycling verbs",
+        Demo: () => (
+          <WibblingSpinner
+            glyphColor="#7c3aed"
+            verbInterval={1500}
+            info={<>10s · ↓ 193 tokens</>}
+          />
+        ),
+        code: `<WibblingSpinner
+  glyphColor="#7c3aed"
+  verbInterval={1500}
+  info="10s · ↓ 193 tokens"
+/>`,
+      },
+      {
+        title: "Live info child (counter ticks fast, spinner is unaffected)",
+        Demo: () => (
+          <WibblingSpinner
+            info={
+              <>
+                <ElapsedSeconds /> · ↓ <LiveTokens /> tokens
+              </>
+            }
+          />
+        ),
+        code: `function ElapsedSeconds() {
+  const [n, setN] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setN((x) => x + 1), 1000);
+    return () => clearInterval(id);
+  }, []);
+  return <>{n}s</>;
+}
+function LiveTokens() {
+  const [n, setN] = useState(0);
+  useEffect(() => {
+    const id = setInterval(
+      () => setN((x) => x + Math.floor(Math.random() * 18) + 4),
+      80,
+    );
+    return () => clearInterval(id);
+  }, []);
+  return <>{n}</>;
+}
+
+// Both children own their state, so they re-render in isolation.
+// WibblingSpinner never sees a new \`info\` reference, so its
+// rolled verb and current glyph index stay put.
+<WibblingSpinner info={<><ElapsedSeconds /> · ↓ <LiveTokens /> tokens</>} />`,
+      },
+      {
+        title: "Custom verb pool",
+        Demo: () => (
+          <WibblingSpinner
+            verbs={["Cooking", "Reducing", "Plating", "Garnishing", "Tasting"]}
+            verbInterval={1500}
+            glyphColor="#22c55e"
+            info={<>3m · ↓ 12 ingredients</>}
+          />
+        ),
+        code: `<WibblingSpinner
+  verbs={["Cooking", "Reducing", "Plating", "Garnishing", "Tasting"]}
+  verbInterval={1500}
+  glyphColor="#22c55e"
+  info="3m · ↓ 12 ingredients"
+/>`,
+      },
+    ],
+    props: [
+      { name: "verbs", type: "string[]", desc: "Verb pool. Defaults to the 186-verb Claude Code list. Pass a single-element array (e.g. [\"Hardcoding\"]) to pin one verb." },
+      { name: "glyphs", type: "string[]", default: '["·","✢","✳","✶","✻","✽"]', desc: "Cycle of glyphs to rotate through." },
+      { name: "glyphInterval", type: "number", default: "250", desc: "ms between glyph frames." },
+      { name: "verbInterval", type: "number", desc: "ms between verb re-rolls. Omit to pick one verb at mount and never change it." },
+      { name: "ellipsis", type: "string", default: '"…"', desc: "Suffix rendered after the verb." },
+      { name: "info", type: "ReactNode", desc: "Parenthetical content after the verb. Stateful children update independently without re-rendering the spinner." },
+      { name: "glyphColor", type: "string", desc: "CSS color for the rotating glyph. Defaults to var(--pui-warn)." },
     ],
   },
 

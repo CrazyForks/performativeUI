@@ -1314,6 +1314,33 @@ button:hover > .pui-arrow,
 }
 
 /* =============================================================
+   Component: WibblingSpinner (the Claude Code loading spinner)
+   ============================================================= */
+.pui-wibble {
+  display: inline-flex;
+  align-items: baseline;
+  /* Exactly one monospace character's width between the glyph, the
+     verb, and the parenthetical. */
+  gap: 1ch;
+  font-family: var(--pui-font-mono);
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--pui-fg);
+}
+.pui-wibble__glyph {
+  display: inline-block;
+  width: 1ch;
+  text-align: center;
+  color: var(--pui-warn);
+}
+.pui-wibble__verb {
+  font-family: inherit;
+}
+.pui-wibble__info {
+  color: var(--pui-fg-mute);
+}
+
+/* =============================================================
    Component: ChatFAB
    ============================================================= */
 .pui-fab {
