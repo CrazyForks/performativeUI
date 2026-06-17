@@ -14,6 +14,12 @@
 </p>
 
 <p align="center">
+<a href="https://vercel.com/open-source-program">
+  <img alt="Vercel OSS Program" src="https://vercel.com/oss/program-badge-2026.svg" />
+</a>
+</p>
+
+<p align="center">
   <img alt="build" src="https://img.shields.io/badge/build-passing-brightgreen" />
   <img alt="npm" src="https://img.shields.io/npm/v/performative-ui?color=cb3837&logo=npm&logoColor=white" />
   <img alt="bundle" src="https://img.shields.io/badge/bundle-30%20KB-blue" />
