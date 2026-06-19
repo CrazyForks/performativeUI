@@ -408,6 +408,187 @@ export const COMPONENTS: ComponentMeta[] = [
 
   /* ============================ HEROES ============================ */
   {
+    slug: "ascii-hero",
+    category: "Heroes",
+    name: "AsciiHero",
+    snark: "For hackers, by people who follow the right newsletters.",
+    sources: [
+      { name: "opencode.ai", url: "https://opencode.ai" },
+      { name: "ghostty.org", url: "https://ghostty.org" },
+      { name: "terminal.shop", url: "https://terminal.shop" },
+      { name: "supermemory.ai", url: "https://supermemory.ai" },
+    ],
+    extra: 25,
+    description:
+      "A canvas-rendered procedural ASCII field that reacts to the cursor. The grid auto-fits its container. Two visual modes: `panel` (default, bordered card) and `bare` (no chrome, intended for background use). Flip on `colorful` for the aurora palette and `spotlightOpacity` to brighten the area under the cursor, perfect for low-opacity backgrounds where the user gets rewarded for hovering.",
+    examples: [
+      {
+        title: "Default panel",
+        stretch: true,
+        Demo: () => (
+          <div style={{ padding: 24 }}>
+            <AsciiHero />
+          </div>
+        ),
+        code: `<AsciiHero />`,
+      },
+      {
+        title: "Colorful (aurora palette)",
+        stretch: true,
+        Demo: () => (
+          <div style={{ padding: 24 }}>
+            <AsciiHero colorful />
+          </div>
+        ),
+        code: `<AsciiHero colorful />`,
+      },
+      {
+        title: "As a hero background (low opacity + cursor spotlight)",
+        stretch: true,
+        Demo: () => (
+          <div
+            style={{
+              position: "relative",
+              minHeight: 280,
+              padding: 36,
+              overflow: "hidden",
+              background: "#08080b",
+            }}
+          >
+            <AsciiHero
+              variant="bare"
+              colorful
+              baseOpacity={0.18}
+              spotlightOpacity={0.9}
+              spotlightRadius={10}
+              style={{ position: "absolute", inset: 0 }}
+            />
+            <div
+              style={{
+                position: "relative",
+                zIndex: 1,
+                textAlign: "center",
+                color: "var(--pui-fg)",
+              }}
+            >
+              <h3 style={{ fontSize: 28, margin: "0 0 8px" }}>
+                Hover this card.
+              </h3>
+              <p style={{ margin: 0, color: "var(--pui-fg-dim)" }}>
+                The field stays dim until your cursor lights it up.
+              </p>
+            </div>
+          </div>
+        ),
+        code: `<div style={{ position: "relative" }}>
+  <AsciiHero
+    variant="bare"
+    colorful
+    baseOpacity={0.18}
+    spotlightOpacity={0.9}
+    spotlightRadius={10}
+    style={{ position: "absolute", inset: 0 }}
+  />
+  <div style={{ position: "relative", zIndex: 1 }}>…content…</div>
+</div>`,
+      },
+      {
+        title: "Custom palette + ramp",
+        stretch: true,
+        Demo: () => (
+          <div style={{ padding: 24 }}>
+            <AsciiHero
+              palette={["#22c55e", "#86efac", "#fbbf24"]}
+              charRamp=" .:-=+*#%@"
+            />
+          </div>
+        ),
+        code: `<AsciiHero
+  palette={["#22c55e", "#86efac", "#fbbf24"]}
+  charRamp=" .:-=+*#%@"
+/>`,
+      },
+    ],
+    props: [
+      { name: "variant", type: '"panel" | "bare"', default: '"panel"', desc: "panel = bordered card; bare = no chrome (for background use)." },
+      { name: "cols", type: "number", desc: "Grid width in cells. Auto-computed from container if omitted." },
+      { name: "rows", type: "number", desc: "Grid height in cells. Auto-computed from container if omitted." },
+      { name: "fontSize", type: "number", default: "11", desc: "Character font size (px)." },
+      { name: "charRamp", type: "string", desc: "Sparsest → densest characters." },
+      { name: "colorful", type: "boolean", desc: "Paint with the default aurora palette." },
+      { name: "palette", type: "string[]", desc: "Custom palette; overrides `colorful`." },
+      { name: "baseOpacity", type: "number", default: "1", desc: "Base alpha. Drop low (≈ 0.18) for background use." },
+      { name: "reactive", type: "boolean", default: "true", desc: "Enable cursor reactivity." },
+      { name: "rippleStrength", type: "number", default: "1.4", desc: "Cursor ripple amplitude (changes which chars show)." },
+      { name: "rippleRadius", type: "number", default: "6", desc: "Cursor ripple falloff radius (cells)." },
+      { name: "spotlightOpacity", type: "number", desc: "Alpha at the cursor center; falls off radially to baseOpacity." },
+      { name: "spotlightRadius", type: "number", default: "8", desc: "Cursor spotlight radius (cells)." },
+      { name: "frameMs", type: "number", default: "50", desc: "Frame throttle (ms)." },
+    ],
+  },
+
+  {
+    slug: "goldeneye",
+    category: "Heroes",
+    name: "Goldeneye",
+    snark: "Make them earn it.",
+    sources: [
+      { name: "mimo.xiaomi.com", url: "https://mimo.xiaomi.com" },
+    ],
+    extra: 20,
+    description:
+      "A reveal-on-hover headline over a tiled-letter background. The page shows `text_default` on a field of small repeating letters; a circular scope follows the cursor and swaps it for `text_reveal` on an inverted plate, with the background pattern resized inside the scope. Polarity flips with the theme automatically. Move your mouse over the demos.",
+    examples: [
+      {
+        title: "Basic",
+        stretch: true,
+        Demo: () => (
+          <div style={{ padding: 0 }}>
+            <Goldeneye text_default="AGENTIC" text_reveal="if/else" />
+          </div>
+        ),
+        code: `<Goldeneye text_default="AGENTIC" text_reveal="if/else" />`,
+      },
+      {
+        title: "Serif face, shrunk-not-grown pattern",
+        stretch: true,
+        Demo: () => (
+          <div style={{ padding: 0 }}>
+            <Goldeneye
+              text_default="ZERO TO ONE"
+              text_reveal="ZERO TO TWO"
+              pattern="0 1 0 1 "
+              pattern_size_default={20}
+              pattern_size_reveal={11}
+              fontFamily="'Instrument Serif', ui-serif, Georgia, serif"
+              scopeSize={260}
+            />
+          </div>
+        ),
+        code: `<Goldeneye
+  text_default="ZERO TO ONE"
+  text_reveal="ZERO TO TWO"
+  pattern="0 1 0 1 "
+  pattern_size_default={20}
+  pattern_size_reveal={11}
+  fontFamily="'Instrument Serif', ui-serif, Georgia, serif"
+  scopeSize={260}
+/>`,
+      },
+    ],
+    props: [
+      { name: "text_default", type: "string", required: true, desc: "Headline shown on the page, outside the scope." },
+      { name: "text_reveal", type: "string", required: true, desc: "Headline revealed inside the scope as the cursor passes over." },
+      { name: "pattern", type: "string", default: '"0 1 0 1 "', desc: "Tiled-letter background. Even rows are offset by half a tile so the grid reads as a diamond lattice." },
+      { name: "pattern_size_default", type: "number", default: "14", desc: "Pattern font size (px) outside the scope." },
+      { name: "pattern_size_reveal", type: "number", default: "22", desc: "Pattern font size (px) inside the scope." },
+      { name: "scopeSize", type: "number", default: "320", desc: "Diameter of the reveal scope, in px." },
+      { name: "fontSize", type: "number | string", default: "clamp(48px, 11vw, 160px)", desc: "Headline font size. Number = px; string = any CSS length (clamp, vw, etc.)." },
+      { name: "fontFamily", type: "string", desc: "CSS font-family for the headline. Defaults to the library sans (the pattern always uses mono)." },
+    ],
+  },
+
+  {
     slug: "rotator",
     category: "Heroes",
     name: "Rotator",
@@ -680,187 +861,6 @@ export const COMPONENTS: ComponentMeta[] = [
       { name: "hideSend", type: "boolean", desc: "Hide the send button." },
       { name: "submitOnCmdEnter", type: "boolean", default: "true", desc: "Submit when Cmd/Ctrl+Enter is pressed." },
       { name: "toolbarExtras", type: "ReactNode", desc: "Extra node rendered just before the mic + send buttons (e.g. a Cmd+↵ hint)." },
-    ],
-  },
-
-  {
-    slug: "ascii-hero",
-    category: "Heroes",
-    name: "AsciiHero",
-    snark: "For hackers, by people who follow the right newsletters.",
-    sources: [
-      { name: "opencode.ai", url: "https://opencode.ai" },
-      { name: "ghostty.org", url: "https://ghostty.org" },
-      { name: "terminal.shop", url: "https://terminal.shop" },
-      { name: "supermemory.ai", url: "https://supermemory.ai" },
-    ],
-    extra: 25,
-    description:
-      "A canvas-rendered procedural ASCII field that reacts to the cursor. The grid auto-fits its container. Two visual modes: `panel` (default, bordered card) and `bare` (no chrome, intended for background use). Flip on `colorful` for the aurora palette and `spotlightOpacity` to brighten the area under the cursor, perfect for low-opacity backgrounds where the user gets rewarded for hovering.",
-    examples: [
-      {
-        title: "Default panel",
-        stretch: true,
-        Demo: () => (
-          <div style={{ padding: 24 }}>
-            <AsciiHero />
-          </div>
-        ),
-        code: `<AsciiHero />`,
-      },
-      {
-        title: "Colorful (aurora palette)",
-        stretch: true,
-        Demo: () => (
-          <div style={{ padding: 24 }}>
-            <AsciiHero colorful />
-          </div>
-        ),
-        code: `<AsciiHero colorful />`,
-      },
-      {
-        title: "As a hero background (low opacity + cursor spotlight)",
-        stretch: true,
-        Demo: () => (
-          <div
-            style={{
-              position: "relative",
-              minHeight: 280,
-              padding: 36,
-              overflow: "hidden",
-              background: "#08080b",
-            }}
-          >
-            <AsciiHero
-              variant="bare"
-              colorful
-              baseOpacity={0.18}
-              spotlightOpacity={0.9}
-              spotlightRadius={10}
-              style={{ position: "absolute", inset: 0 }}
-            />
-            <div
-              style={{
-                position: "relative",
-                zIndex: 1,
-                textAlign: "center",
-                color: "var(--pui-fg)",
-              }}
-            >
-              <h3 style={{ fontSize: 28, margin: "0 0 8px" }}>
-                Hover this card.
-              </h3>
-              <p style={{ margin: 0, color: "var(--pui-fg-dim)" }}>
-                The field stays dim until your cursor lights it up.
-              </p>
-            </div>
-          </div>
-        ),
-        code: `<div style={{ position: "relative" }}>
-  <AsciiHero
-    variant="bare"
-    colorful
-    baseOpacity={0.18}
-    spotlightOpacity={0.9}
-    spotlightRadius={10}
-    style={{ position: "absolute", inset: 0 }}
-  />
-  <div style={{ position: "relative", zIndex: 1 }}>…content…</div>
-</div>`,
-      },
-      {
-        title: "Custom palette + ramp",
-        stretch: true,
-        Demo: () => (
-          <div style={{ padding: 24 }}>
-            <AsciiHero
-              palette={["#22c55e", "#86efac", "#fbbf24"]}
-              charRamp=" .:-=+*#%@"
-            />
-          </div>
-        ),
-        code: `<AsciiHero
-  palette={["#22c55e", "#86efac", "#fbbf24"]}
-  charRamp=" .:-=+*#%@"
-/>`,
-      },
-    ],
-    props: [
-      { name: "variant", type: '"panel" | "bare"', default: '"panel"', desc: "panel = bordered card; bare = no chrome (for background use)." },
-      { name: "cols", type: "number", desc: "Grid width in cells. Auto-computed from container if omitted." },
-      { name: "rows", type: "number", desc: "Grid height in cells. Auto-computed from container if omitted." },
-      { name: "fontSize", type: "number", default: "11", desc: "Character font size (px)." },
-      { name: "charRamp", type: "string", desc: "Sparsest → densest characters." },
-      { name: "colorful", type: "boolean", desc: "Paint with the default aurora palette." },
-      { name: "palette", type: "string[]", desc: "Custom palette; overrides `colorful`." },
-      { name: "baseOpacity", type: "number", default: "1", desc: "Base alpha. Drop low (≈ 0.18) for background use." },
-      { name: "reactive", type: "boolean", default: "true", desc: "Enable cursor reactivity." },
-      { name: "rippleStrength", type: "number", default: "1.4", desc: "Cursor ripple amplitude (changes which chars show)." },
-      { name: "rippleRadius", type: "number", default: "6", desc: "Cursor ripple falloff radius (cells)." },
-      { name: "spotlightOpacity", type: "number", desc: "Alpha at the cursor center; falls off radially to baseOpacity." },
-      { name: "spotlightRadius", type: "number", default: "8", desc: "Cursor spotlight radius (cells)." },
-      { name: "frameMs", type: "number", default: "50", desc: "Frame throttle (ms)." },
-    ],
-  },
-
-  {
-    slug: "goldeneye",
-    category: "Heroes",
-    name: "Goldeneye",
-    snark: "Make them earn it.",
-    sources: [
-      { name: "mimo.xiaomi.com", url: "https://mimo.xiaomi.com" },
-    ],
-    extra: 20,
-    description:
-      "A reveal-on-hover headline over a tiled-letter background. The page shows `text_default` on a field of small repeating letters; a circular scope follows the cursor and swaps it for `text_reveal` on an inverted plate, with the background pattern resized inside the scope. Polarity flips with the theme automatically. Move your mouse over the demos.",
-    examples: [
-      {
-        title: "Basic",
-        stretch: true,
-        Demo: () => (
-          <div style={{ padding: 0 }}>
-            <Goldeneye text_default="AGENTIC" text_reveal="if/else" />
-          </div>
-        ),
-        code: `<Goldeneye text_default="AGENTIC" text_reveal="if/else" />`,
-      },
-      {
-        title: "Serif face, shrunk-not-grown pattern",
-        stretch: true,
-        Demo: () => (
-          <div style={{ padding: 0 }}>
-            <Goldeneye
-              text_default="ZERO TO ONE"
-              text_reveal="ZERO TO TWO"
-              pattern="0 1 0 1 "
-              pattern_size_default={20}
-              pattern_size_reveal={11}
-              fontFamily="'Instrument Serif', ui-serif, Georgia, serif"
-              scopeSize={260}
-            />
-          </div>
-        ),
-        code: `<Goldeneye
-  text_default="ZERO TO ONE"
-  text_reveal="ZERO TO TWO"
-  pattern="0 1 0 1 "
-  pattern_size_default={20}
-  pattern_size_reveal={11}
-  fontFamily="'Instrument Serif', ui-serif, Georgia, serif"
-  scopeSize={260}
-/>`,
-      },
-    ],
-    props: [
-      { name: "text_default", type: "string", required: true, desc: "Headline shown on the page, outside the scope." },
-      { name: "text_reveal", type: "string", required: true, desc: "Headline revealed inside the scope as the cursor passes over." },
-      { name: "pattern", type: "string", default: '"0 1 0 1 "', desc: "Tiled-letter background. Even rows are offset by half a tile so the grid reads as a diamond lattice." },
-      { name: "pattern_size_default", type: "number", default: "14", desc: "Pattern font size (px) outside the scope." },
-      { name: "pattern_size_reveal", type: "number", default: "22", desc: "Pattern font size (px) inside the scope." },
-      { name: "scopeSize", type: "number", default: "320", desc: "Diameter of the reveal scope, in px." },
-      { name: "fontSize", type: "number | string", default: "clamp(48px, 11vw, 160px)", desc: "Headline font size. Number = px; string = any CSS length (clamp, vw, etc.)." },
-      { name: "fontFamily", type: "string", desc: "CSS font-family for the headline. Defaults to the library sans (the pattern always uses mono)." },
     ],
   },
 
@@ -2245,9 +2245,29 @@ return <Temperature value={level} onChange={setLevel} />;`,
   },
 ];
 
+/**
+ * Sidebar / landing-page section order. Categories listed here render
+ * in this order; any category present in COMPONENTS but missing from
+ * this list is appended afterwards in first-appearance order, so a new
+ * category never silently disappears.
+ */
+const CATEGORY_ORDER = [
+  "Heroes",
+  "Menus",
+  "Social Proof",
+  "Atoms",
+  "Primitives",
+  "Banners",
+  "Backgrounds",
+  "Surfaces",
+  "Conversation",
+  "Pricing & Conversion",
+  "Footers",
+];
+
 export const CATEGORIES = Array.from(
-  new Set(COMPONENTS.map((c) => c.category)),
-);
+  new Set([...CATEGORY_ORDER, ...COMPONENTS.map((c) => c.category)]),
+).filter((cat) => COMPONENTS.some((c) => c.category === cat));
 
 /**
  * COMPONENTS in the same order they appear in the sidebar

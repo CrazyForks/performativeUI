@@ -31,16 +31,18 @@ research/            Background research used while building components.
    ...) so the component adapts to dark and light themes for free.
 2. Re-export it from `src/index.ts` so consumers can `import { MyComponent }
    from "performative-ui"`. Export the props type alongside the component.
-3. Add a docs entry in `docs/lib/meta.tsx`. **Insert it at the right
-   position in the `COMPONENTS` array so the sidebar order is correct.**
-   The sidebar groups by category in the order categories first appear,
-   and within each category in array order. The `[` / `]` skim hotkeys
-   and the "Next: X" card at the bottom of each docs page both use
-   `ORDERED_COMPONENTS` (which is derived from this same order), so a
-   misplaced component will produce wrong-feeling navigation jumps. For
-   example, putting a new Primitives entry after a Heroes entry will
-   cause the previous Primitives item to skip over your new one when
-   you press `]`.
+3. Add a docs entry in `docs/lib/meta.tsx`. **Insert it next to the
+   other entries in its category, in the array, so the sidebar order is
+   correct.** Section order is set explicitly by the `CATEGORY_ORDER`
+   list in `meta.tsx`; components within a category render in array
+   order. A brand-new category not listed in `CATEGORY_ORDER` still
+   shows up (appended after the listed sections), but add it to the list
+   to control where. The `[` / `]` skim hotkeys and the "Next: X" card
+   at the bottom of each docs page both use `ORDERED_COMPONENTS` (which
+   flattens `COMPONENTS` in `CATEGORY_ORDER` order), so a misplaced
+   component will produce wrong-feeling navigation jumps. For example,
+   putting a new Primitives entry after a Heroes entry will cause the
+   previous Primitives item to skip over your new one when you press `]`.
 4. The landing page shows the total component count in the eyebrow pill
    (`{COMPONENTS.length} components`). It pulls from the same array, so
    the count updates automatically once your entry is in. No manual
