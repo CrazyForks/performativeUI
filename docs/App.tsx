@@ -193,20 +193,6 @@ function Sidebar({
           </nav>
         </div>
       ))}
-
-      <div className="sidebar__section">
-        <p className="sidebar__title">Other Frameworks</p>
-        <nav className="sidebar__nav">
-          <a
-            className="sidebar__link"
-            href="https://benjamin-brady.github.io/performative-ui-svelte/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Svelte port
-          </a>
-        </nav>
-      </div>
     </aside>
   );
 }
