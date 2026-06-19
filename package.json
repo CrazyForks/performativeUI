@@ -37,6 +37,7 @@
     "build": "npm run build:lib && npm run build:docs",
     "build:lib": "vite build --config vite.lib.config.ts",
     "build:docs": "vite build --config vite.docs.config.ts",
+    "build:og": "node scripts/gen-og.mjs",
     "preview": "vite preview --config vite.docs.config.ts",
     "typecheck": "tsc --noEmit"
   },
@@ -54,6 +55,7 @@
     "react-dom": "^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.3.4",
