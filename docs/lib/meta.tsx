@@ -30,6 +30,8 @@ import {
   BeforeAfter,
   WaitlistForm,
   Popover,
+  Temperature,
+  BigBack,
   type IdeToken,
 } from "performative-ui";
 import { useEffect, useState } from "react";
@@ -2023,6 +2025,222 @@ return (
       { name: "closeOnEscape", type: "boolean", default: "false", desc: "Allow the Escape key to close. Default false (obtrusive by design)." },
       { name: "closeOnBackdrop", type: "boolean", default: "false", desc: "Allow backdrop clicks to close. Default false." },
       { name: "container", type: "HTMLElement | null", desc: "Portal target. Defaults to document.body so the popover covers the viewport." },
+    ],
+  },
+
+  /* ============================ MENUS ============================ */
+  {
+    slug: "temperature",
+    category: "Menus",
+    name: "Temperature",
+    snark: "These go to eleven.",
+    sources: [],
+    extra: 4,
+    description:
+      "A reasoning-effort slider modeled on the `/effort` menus coding agents ship. It fills its container, so give the container a height: poles pin to the top, the tiers to the bottom, and the track stretches through the middle. Hover to preview the tier nearest the cursor, and click anywhere in the widget to commit it. Pass `options` to define the tiers left to right, each with a `color` that is either a flat CSS color or one of the animated treatments: `glow`, `rainbow`, or `ludicrous`. A `ludicrous` tier floods the whole widget with a pulsing violet ripple.",
+    examples: [
+      {
+        title: "Default (hover to preview, click anywhere to commit)",
+        stretch: true,
+        Demo: () => (
+          <div style={{ height: 220 }}>
+            <Temperature />
+          </div>
+        ),
+        code: `<Temperature />`,
+      },
+      {
+        title: "Custom options and poles",
+        stretch: true,
+        Demo: () => (
+          <div style={{ height: 220 }}>
+            <Temperature
+              labelLow="Frugal"
+              labelHigh="Unhinged"
+              options={[
+                { key: "eco", label: "eco", color: "var(--pui-temp-medium)" },
+                { key: "balanced", label: "balanced", color: "var(--pui-temp-high)" },
+                { key: "turbo", label: "turbo", color: "glow" },
+                { key: "warp", label: "warp", color: "rainbow" },
+                { key: "plaid", label: "plaid", color: "ludicrous" },
+              ]}
+            />
+          </div>
+        ),
+        code: `<Temperature
+  labelLow="Frugal"
+  labelHigh="Unhinged"
+  options={[
+    { key: "eco", label: "eco", color: "var(--pui-temp-medium)" },
+    { key: "balanced", label: "balanced", color: "var(--pui-temp-high)" },
+    { key: "turbo", label: "turbo", color: "glow" },
+    { key: "warp", label: "warp", color: "rainbow" },
+    { key: "plaid", label: "plaid", color: "ludicrous" },
+  ]}
+/>`,
+      },
+      {
+        title: "Controlled",
+        stretch: true,
+        Demo: () => {
+          const [level, setLevel] = useState("max");
+          return (
+            <>
+              <div style={{ height: 200 }}>
+                <Temperature value={level} onChange={setLevel} />
+              </div>
+              <p
+                style={{
+                  padding: "10px 16px 0",
+                  fontFamily: "var(--pui-font-mono)",
+                  fontSize: 13,
+                  color: "var(--pui-fg-dim)",
+                }}
+              >
+                effort: {level}
+              </p>
+            </>
+          );
+        },
+        code: `const [level, setLevel] = useState("max");
+
+return <Temperature value={level} onChange={setLevel} />;`,
+      },
+    ],
+    props: [
+      { name: "options", type: "TemperatureOption[]", default: "low..ludicrous", desc: "Tiers left to right: { key, label, color }. color is a flat CSS color or one of glow | rainbow | ludicrous." },
+      { name: "value", type: "string", desc: "Controlled selected key." },
+      { name: "defaultValue", type: "string", default: "middle tier", desc: "Initial selected key when uncontrolled." },
+      { name: "onChange", type: "(key: string) => void", desc: "Fires when a tier is committed (clicked anywhere)." },
+      { name: "labelLow", type: "string", default: '"Cheaper"', desc: "Left pole caption." },
+      { name: "labelHigh", type: "string", default: '"Faster"', desc: "Right pole caption." },
+    ],
+  },
+
+  /* ============================ FOOTERS ============================ */
+  {
+    slug: "bigback",
+    category: "Footers",
+    name: "BigBack",
+    snark:
+      "We took SPA too literally and you forgot our company name while scrolling to the bottom.",
+    sources: [
+      { name: "antigravity.google", url: "https://antigravity.google/" },
+      { name: "tempo.so", url: "https://tempo.so/" },
+    ],
+    extra: 9,
+    description:
+      "The whole-page sign-off, where the company name is set wall-sized and bleeds off the bottom edge. The wordmark is an SVG that stretches to the full footer width, so short names get fat letters and long names get condensed ones, but it always spans edge to edge. The link columns up top are the alibi.",
+    examples: [
+      {
+        title: "The whole footer",
+        stretch: true,
+        Demo: () => (
+          <BigBack
+            company="Synthetica"
+            copyright="All rights reserved, retroactively."
+            columns={[
+              {
+                heading: "Company",
+                links: [
+                  { label: "About us", href: "#" },
+                  { label: "Careers", href: "#" },
+                  { label: "Contact", href: "#" },
+                  { label: "Press", href: "#" },
+                  { label: "Legal", href: "#" },
+                ],
+              },
+              {
+                heading: "Developers",
+                links: [
+                  { label: "Quickstart", href: "#" },
+                  { label: "API documentation", href: "#" },
+                  { label: "Libraries", href: "#" },
+                  { label: "GitHub", href: "#" },
+                  { label: "Product demos", href: "#" },
+                ],
+              },
+              {
+                heading: "Resources",
+                links: [
+                  { label: "Blog", href: "#" },
+                  { label: "Changelog", href: "#" },
+                  { label: "Manifesto", href: "#" },
+                  { label: "Brand kit", href: "#" },
+                ],
+              },
+            ]}
+            social={[
+              { label: "X", href: "#" },
+              { label: "GitHub", href: "#" },
+              { label: "LinkedIn", href: "#" },
+            ]}
+          />
+        ),
+        code: `<BigBack
+  company="Synthetica"
+  copyright="All rights reserved, retroactively."
+  columns={[
+    {
+      heading: "Company",
+      links: [
+        { label: "About us", href: "#" },
+        { label: "Careers", href: "#" },
+        { label: "Contact", href: "#" },
+        { label: "Press", href: "#" },
+        { label: "Legal", href: "#" },
+      ],
+    },
+    {
+      heading: "Developers",
+      links: [
+        { label: "Quickstart", href: "#" },
+        { label: "API documentation", href: "#" },
+        { label: "Libraries", href: "#" },
+        { label: "GitHub", href: "#" },
+        { label: "Product demos", href: "#" },
+      ],
+    },
+    {
+      heading: "Resources",
+      links: [
+        { label: "Blog", href: "#" },
+        { label: "Changelog", href: "#" },
+        { label: "Manifesto", href: "#" },
+        { label: "Brand kit", href: "#" },
+      ],
+    },
+  ]}
+  social={[
+    { label: "X", href: "#" },
+    { label: "GitHub", href: "#" },
+    { label: "LinkedIn", href: "#" },
+  ]}
+/>`,
+      },
+    ],
+    props: [
+      { name: "company", type: "string", desc: "The company name, set wall-sized as the wordmark. Required." },
+      { name: "columns", type: "BigBackColumn[]", desc: "Link columns shown above the wordmark. Omit to render the wordmark alone." },
+      { name: "social", type: "BigBackLink[]", desc: "Small links in the baseline row." },
+      { name: "copyright", type: "ReactNode", default: '"All rights reserved"', desc: "Baseline-row text on the left." },
+      { name: "gradient", type: "boolean", default: "false", desc: "Fill the wordmark with the brand gradient." },
+    ],
+    subprops: [
+      {
+        name: "BigBackColumn",
+        props: [
+          { name: "heading", type: "ReactNode", desc: "Column title." },
+          { name: "links", type: "BigBackLink[]", desc: "Links in the column." },
+        ],
+      },
+      {
+        name: "BigBackLink",
+        props: [
+          { name: "label", type: "ReactNode", desc: "Link text." },
+          { name: "href", type: "string", default: '"#"', desc: "Link target." },
+        ],
+      },
     ],
   },
 ];

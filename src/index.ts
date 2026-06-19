@@ -93,11 +93,27 @@ export {
   type CommunityBadgeProps,
 } from "./components/CommunityBadge";
 
+// Menus
+export {
+  Temperature,
+  type TemperatureProps,
+  type TemperatureOption,
+  type TemperatureColor,
+} from "./components/Temperature";
+
 // Pricing / waitlist
 export { PricingCard, type PricingCardProps } from "./components/PricingCard";
 export { BeforeAfter, type BeforeAfterProps } from "./components/BeforeAfter";
 export { WaitlistForm, type WaitlistFormProps } from "./components/WaitlistForm";
 export { Popover, type PopoverProps } from "./components/Popover";
+
+// Footers
+export {
+  BigBack,
+  type BigBackProps,
+  type BigBackColumn,
+  type BigBackLink,
+} from "./components/BigBack";
 
 // Hooks (escape hatches for headless usage)
 export {
