@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <a href="https://vorpus.github.io/performativeUI/"><b>Documentation</b></a>
+  <a href="https://performative-ui.cncl.co/"><b>Documentation</b></a>
   ·
   <a href="https://www.npmjs.com/package/performative-ui"><b>npm</b></a>
   ·
@@ -51,7 +51,7 @@
 npm install performative-ui
 ```
 
-Visit **[the documentation](https://vorpus.github.io/performativeUI/)** for the
+Visit **[the documentation](https://performative-ui.cncl.co/)** for the
 full component catalog, live demos, and API reference.
 
 ## Community Ports
